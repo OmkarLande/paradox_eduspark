@@ -1,6 +1,30 @@
 import React, { useState } from "react";
+import axios from 'axios'
 
 const Login = () => {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      // Make a POST request to your backend authentication endpoint
+      const response = await axios.post('your-backend-api/login', {
+        email,
+        password,
+      });
+
+      // Assuming your backend returns a token upon successful login
+      const token = response.data.token;
+
+      // You may store the token in a secure way (e.g., localStorage) for future requests
+
+      console.log('Login successful');
+    } catch (error) {
+      console.error('Login failed', error);
+    }
+  };
+
   const [mode, setMode] = useState("student"); // Set default mode to 'student'
 
   const switchToStudent = () => {
@@ -10,6 +34,7 @@ const Login = () => {
   const switchToInstructor = () => {
     setMode("instructor");
   };
+
 
   return (
     <>
