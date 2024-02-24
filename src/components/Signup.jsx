@@ -20,7 +20,7 @@ function Signup() {
     return (
         <>
           <div
-            className="flex flex-row  items-center justify-center"
+            className="flex flex-row  bg-white  items-center justify-center"
              >
 
             <div

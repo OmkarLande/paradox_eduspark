@@ -10,7 +10,7 @@ function SignupForm() {
   >
     <h1 className="text-center text-5xl font-Grish ">Signup</h1>
     <div className="mb-2 pt-3  ">
-      <label className="block  text-lg" for="name">
+      <label className="block text-black  text-lg" for="name">
         Name
       </label>
       <input
@@ -21,7 +21,7 @@ function SignupForm() {
       />
     </div>
     <div className="mb-2 pt-3  ">
-      <label className="block  text-lg" for="email">
+      <label className="block text-black text-lg" for="email">
         Email
       </label>
       <input
@@ -32,7 +32,7 @@ function SignupForm() {
       />
     </div>
     <div className="mb-2 pt-3  ">
-      <label className="block  text-lg" for="age">
+      <label className="block text-black  text-lg" for="age">
         Age
       </label>
       <input
@@ -43,7 +43,7 @@ function SignupForm() {
       />
     </div>
     <div className="mb-2 pt-3 ">
-      <label className="block  text-lg   " for="password">
+      <label className="block  text-lg   text-black" for="password">
         Password
       </label>
       <input
@@ -53,9 +53,9 @@ function SignupForm() {
         className="bg-sky-400 rounded w-full placeholder:text-white  p-3   "
       />
     </div>
-    <div className="mb-2 pt-3 ">
+    <div className="mb-2 pt-3 text-black ">
       <label className="block  text-lg   " for="confirm-password">
-        Password
+        Confirm Password
       </label>
       <input
         type="password"
@@ -64,7 +64,7 @@ function SignupForm() {
         className="bg-sky-400 rounded w-full placeholder:text-white  p-3   "
       />
     </div>
-    <div className="flex ">
+    <div className="flex text-black">
       <a href="#" className="text-sm  mb-6">
        Already have an account? Login
       </a>
