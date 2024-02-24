@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function SignupForm(props) {
   const [name, setName] = useState('');
@@ -9,10 +9,12 @@ function SignupForm(props) {
   const [password, setPassword] = useState('');
   const mode = props.mode
 
+  const history = useHistory();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let formData = {
+    const formData = {
       "name": name,
       "email": email,
       "password": password,
@@ -21,33 +23,24 @@ function SignupForm(props) {
     }
 
     try {
-      console.log(formData)
-      fetch('http://localhost:4000/user/signup', {
-  method: 'POST',
-  // headers: {
-  //   'Content-Type': 'application/json',
-  //   // Other headers as needed
-  // },
-  // credentials: 'include', // or 'same-origin' depending on your requirements
-  body: JSON.stringify(formData),
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
-  });
-
-      console.log(formData);
+      const response = await fetch('http://localhost:4000/user/signup', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    
+      if (response.ok) {
+        console.log('Data successfully submitted');
+        history.push('/')
+      } else {
+        console.error('Failed to submit data. Server returned:', response.status);
+      }
     } catch (error) {
-      console.error('Login failed', error);
+      console.error('Error:', error);
     }
+
   };
 
 

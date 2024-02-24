@@ -3,13 +3,13 @@ import axios from "axios";
 import Form from './Form'
 
 const Login = () => {
-  const [mode, setMode] = useState("student");
+  const [mode, setMode] = useState("Student");
   const switchToStudent = () => {
-    setMode("student");
+    setMode("Student");
   };
 
   const switchToInstructor = () => {
-    setMode("instructor");
+    setMode("Admin");
   };
 
 
@@ -29,7 +29,7 @@ const Login = () => {
             <h1 className="text-center text-5xl font-Grish">Login</h1>
             <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
               <button
-                className={` p-2 ${mode === "student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
+                className={` p-2 ${mode === "Student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
                   }`}
                 onClick={switchToStudent}
                 type="button"
@@ -37,7 +37,7 @@ const Login = () => {
                 Student
               </button>
               <button
-                className={`ml-3 p-2 ${mode === "instructor" ? "border-2 bg-white w-24 text-orange-400 rounded-full " : "text-white"
+                className={`ml-3 p-2 ${mode === "Admin" ? "border-2 bg-white w-24 text-orange-400 rounded-full " : "text-white"
                   }`}
                 onClick={switchToInstructor}
                 type="button"
