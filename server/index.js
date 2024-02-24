@@ -36,11 +36,11 @@ app.use(
 app.use('/user', userRoutes)
 app.use('/rooms', roomRoutes)
 
-app.get('/' , (req , res)=>{
+// app.get('/' , (req , res)=>{
 
-   res.send('hello from simple server :)')
+//    res.send('hello from simple server :)')
 
-})
+// })
 
 
 

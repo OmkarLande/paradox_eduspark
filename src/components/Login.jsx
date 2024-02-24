@@ -1,38 +1,15 @@
 import React, { useState } from "react";
-import axios from 'axios'
+import axios from "axios";
+import Form from './Form'
 
 const Login = () => {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = async () => {
-    try {
-      // Make a POST request to your backend authentication endpoint
-      const response = await axios.post('your-backend-api/login', {
-        email,
-        password,
-      });
-
-      // Assuming your backend returns a token upon successful login
-      const token = response.data.token;
-
-      // You may store the token in a secure way (e.g., localStorage) for future requests
-
-      console.log('Login successful');
-    } catch (error) {
-      console.error('Login failed', error);
-    }
-  };
-
-  const [mode, setMode] = useState("student"); // Set default mode to 'student'
-
+  const [mode, setMode] = useState("Student");
   const switchToStudent = () => {
-    setMode("student");
+    setMode("Student");
   };
 
   const switchToInstructor = () => {
-    setMode("instructor");
+    setMode("Admin");
   };
 
 
@@ -44,70 +21,34 @@ const Login = () => {
           style={{ height: "100%", width: "50%" }}
         >
           <img src="src/images/Logo.svg" alt="" />
-          <form
+          <div
             className="flex flex-col mt-10"
-            method="POST"
-            action="#"
+
             style={{ width: "444px" }}
           >
             <h1 className="text-center text-5xl font-Grish">Login</h1>
             <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
               <button
-                className={`bg-white text-orange-400 w-24 rounded-full p-2 ${
-                  mode === "student" ? "border-2 border-orange-400" : ""
-                }`}
+                className={` p-2 ${mode === "Student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
+                  }`}
                 onClick={switchToStudent}
+                type="button"
               >
                 Student
               </button>
               <button
-                className={`ml-5 p-2 text-white ${
-                  mode === "instructor" ? "border-2 border-white" : ""
-                }`}
+                className={`ml-3 p-2 ${mode === "Admin" ? "border-2 bg-white w-24 text-orange-400 rounded-full " : "text-white"
+                  }`}
                 onClick={switchToInstructor}
+                type="button"
               >
                 Instructor
               </button>
             </div>
 
-            {mode === 'student' && (
-              <>
-                <div className="mb-6 pt-3">
-                  <label className="block text-lg" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    id="email"
-                    placeholder="Enter email address"
-                    className="bg-sky-400 rounded w-full placeholder:text-white p-3"
-                  />
-                </div>
-                <div className="mb-6 pt-3">
-                  <label className="block text-lg" htmlFor="password">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    className="bg-sky-400 rounded w-full placeholder:text-white p-3"
-                  />
-                </div>
-                <div className="flex">
-                  <a href="#" className="text-sm mb-6">
-                    Don't have an account? Signup
-                  </a>
-                </div>
-                <button
-                  className="bg-orange-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-                  type="submit"
-                >
-                  Login
-                </button>
-              </>
-            )}
-          </form>
+            {mode === "student" ? <Form mode={mode} /> : <Form mode={mode} />}
+
+          </div>
         </div>
         <div
           className="flex flex-col items-center justify-center bg-sky-400"
