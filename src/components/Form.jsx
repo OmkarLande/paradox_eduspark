@@ -1,16 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
 
-function Form() {
+function Form(props) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const mode = props.mode
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let formData = {
+      "email": email,
+      "password": password,
+    }
+    try {
+      const response = await fetch('http://localhost:4000/user/login', {
+        method: 'POST',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        body: JSON.stringify(postData),
+        // credentials: 'include', // Include this line if you need to send cookies or credentials with the request
+      });
+
+      if (response.ok) {
+        // Handle successful response
+        console.log('Data successfully submitted');
+      } else {
+        // Handle error response
+        console.error('Failed to submit data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+      
+  };
   return (
-      <div>
+      <form onSubmit={handleSubmit}>
           <div className="mb-6 pt-3">
                   <label className="block text-lg" htmlFor="email">
                     Email
                   </label>
                   <input
-                    onChange={(e) => {
-                      e.target.value;
-                    }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     type="text"
                     id="email"
                     placeholder="Enter email address"
@@ -22,9 +54,8 @@ function Form() {
                     Password
                   </label>
                   <input
-                    onChange={(e) => {
-                      e.target.value;
-                    }}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     id="password"
                     placeholder="Enter password"
@@ -43,7 +74,7 @@ function Form() {
                 >
                   Login
                 </button>
-    </div>
+    </form>
   )
 }
 

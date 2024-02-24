@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import signup_img from '../images/signup.svg'
 import SignupForm from './SignupForm';
+import axios from 'axios';
 
 function Signup() {
 
   const [mode, setMode] = useState("student");
+  
+
 
 
 
@@ -36,7 +39,9 @@ function Signup() {
               style={{ height: "100vh", width: "50vw" }}
             >
               <img src="src/images/Logo.svg" alt="" />
+              <h1 className="text-center text-5xl font-Grish ">Signup</h1>
               <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
+              
               <button
                 className={` p-2 ${mode === "student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
                   }`}
@@ -55,7 +60,7 @@ function Signup() {
               </button>
             </div>
 
-            {mode === "student" ? <SignupForm /> : <SignupForm />}
+            {mode === "student" ? <SignupForm mode={mode} /> : <SignupForm mode={mode} />}
             </div>
           </div>
         </>

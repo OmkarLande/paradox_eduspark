@@ -3,26 +3,7 @@ import axios from "axios";
 import Form from './Form'
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [mode, setMode] = useState("student");
-
-
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post("your-backend-api/login", {
-        email,
-        password,
-      });
-
-      const token = response.data.token;
-
-      console.log("Login successful");
-    } catch (error) {
-      console.error("Login failed", error);
-    }
-  };
-
   const switchToStudent = () => {
     setMode("student");
   };
@@ -40,7 +21,7 @@ const Login = () => {
           style={{ height: "100%", width: "50%" }}
         >
           <img src="src/images/Logo.svg" alt="" />
-          <form
+          <div
             className="flex flex-col mt-10"
 
             style={{ width: "444px" }}
@@ -65,9 +46,9 @@ const Login = () => {
               </button>
             </div>
 
-            {mode === "student" ? <Form /> : <Form />}
+            {mode === "student" ? <Form mode={mode} /> : <Form mode={mode} />}
 
-          </form>
+          </div>
         </div>
         <div
           className="flex flex-col items-center justify-center bg-sky-400"
