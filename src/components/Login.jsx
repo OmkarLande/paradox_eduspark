@@ -48,7 +48,7 @@ const Login = () => {
             <h1 className="text-center text-5xl font-Grish">Login</h1>
             <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
               <button
-                className={`ml-3 p-2 ${mode === "student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
+                className={` p-2 ${mode === "student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
                   }`}
                 onClick={switchToStudent}
                 type="button"

@@ -37,7 +37,7 @@ function Form() {
                   </a>
                 </div>
                 <button
-                  className="bg-orange-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                  className="bg-orange-400 w-full text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
                   type="submit"
                   // onClick={handleLogin}
                 >
