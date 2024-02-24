@@ -61,9 +61,9 @@ exports.signup = async(req, res) => {
 exports.login = async (req, res) => {
     try {
         //data fetch
-        const { email, password } = req.body;
+        const { email, password, role } = req.body;
         //validate?
-        if (!User || !password) {
+        if (!User || !password || !role) {
             return res.status(401).json({
                 success: false,
                 message: 'All fields are required',
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
             const payload = {
                 email: user.email,
                 id: user._id,
-                accountType: user.accountType,
+                role:role,
             }
 
             const token = jwt.sign(payload, process.env.JWT_SECRET, {

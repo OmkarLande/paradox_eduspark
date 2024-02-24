@@ -5,6 +5,7 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const userRoutes = require('./routes/UserRoutes')
+const roomRoutes = require('./routes/RoomRoutes')
 
 require('dotenv').config()
 const port = process.env.PORT || 5000
@@ -26,12 +27,15 @@ app.use(
 	})
 )
 
+app.use('/user', userRoutes)
+app.use('/rooms', roomRoutes)
+
 app.get('/' , (req , res)=>{
 
    res.send('hello from simple server :)')
 
 })
 
-app.use('/user', userRoutes)
+
 
 app.listen(port , ()=> console.log('> Server is up and running on port : ' + port))
