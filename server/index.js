@@ -12,6 +12,12 @@ const port = process.env.PORT || 5000
 
 db.connect()
 
+app.use(
+	fileUpload({
+		useTempFiles:true,
+		tempFileDir:"/temp",
+	})
+)
 app.use(express.json());
 app.use(cookieParser());
 app.use(
