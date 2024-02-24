@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 const Login = () => {
-  const [mode, setMode] = useState(null);
+  const [mode, setMode] = useState("student"); // Set default mode to 'student'
 
   const switchToStudent = () => {
     setMode("student");
   };
 
   const switchToInstructor = () => {
-    setMode("instructor"); // Fix: Change to lowercase 'instructor'
+    setMode("instructor");
   };
 
   return (
@@ -28,57 +28,24 @@ const Login = () => {
             <h1 className="text-center text-5xl font-Grish">Login</h1>
             <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
               <button
-                className="bg-white text-orange-400 w-24 rounded-full p-2"
+                className={`bg-white text-orange-400 w-24 rounded-full p-2 ${
+                  mode === "student" ? "border-2 border-orange-400" : ""
+                }`}
                 onClick={switchToStudent}
               >
                 Student
               </button>
               <button
-                className="ml-5 p-2 text-white"
+                className={`ml-5 p-2 text-white ${
+                  mode === "instructor" ? "border-2 border-white" : ""
+                }`}
                 onClick={switchToInstructor}
               >
                 Instructor
               </button>
             </div>
 
-            {mode === 'instructor' && (
-              <>
-                <div className="mb-6 pt-3">
-                  <label className="block text-lg" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    id="email"
-                    placeholder="Enter instructor email address"
-                    className="bg-sky-400 rounded w-full placeholder:text-white p-3"
-                  />
-                </div>
-                <div className="mb-6 pt-3">
-                  <label className="block text-lg" htmlFor="password">
-                    Password
-                  </label>
-                  <input
-                    type="password" // Fix: Change to 'password'
-                    id="password" // Fix: Change to 'password'
-                    placeholder="Enter password"
-                    className="bg-sky-400 rounded w-full placeholder:text-white p-3"
-                  />
-                </div>
-                <div className="flex">
-                  <a href="#" className="text-sm mb-6">
-                    Don't have an account? Signup
-                  </a>
-                </div>
-                <button
-                  className="bg-orange-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-                  type="submit"
-                >
-                  Login
-                </button>
-              </>
-                      )}
-                      {mode === 'student' && (
+            {mode === 'student' && (
               <>
                 <div className="mb-6 pt-3">
                   <label className="block text-lg" htmlFor="email">
@@ -96,8 +63,8 @@ const Login = () => {
                     Password
                   </label>
                   <input
-                    type="password" // Fix: Change to 'password'
-                    id="password" // Fix: Change to 'password'
+                    type="password"
+                    id="password"
                     placeholder="Enter password"
                     className="bg-sky-400 rounded w-full placeholder:text-white p-3"
                   />
