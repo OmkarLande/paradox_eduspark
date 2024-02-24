@@ -14,9 +14,7 @@ function Form() {
                     type="text"
                     id="email"
                     placeholder="Enter email address"
-                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 ${
-                      mode === "student" ? "" : "instructor-style"
-                    }`}
+                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 `}
                   />
                 </div>
                 <div className="mb-6 pt-3">
@@ -30,9 +28,7 @@ function Form() {
                     type="password"
                     id="password"
                     placeholder="Enter password"
-                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 ${
-                      mode === "student" ? "" : "instructor-style"
-                    }`}
+                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 `}
                   />
                 </div>
                 <div className="flex">
@@ -43,7 +39,7 @@ function Form() {
                 <button
                   className="bg-orange-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
                   type="submit"
-                  onClick={handleLogin}
+                  // onClick={handleLogin}
                 >
                   Login
                 </button>

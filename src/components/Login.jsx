@@ -1,30 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Form from './Form'
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mode, setMode] = useState("student");
+
 
   const handleLogin = async () => {
     try {
-      // Make a POST request to your backend authentication endpoint
       const response = await axios.post("your-backend-api/login", {
         email,
         password,
       });
 
-      // Assuming your backend returns a token upon successful log
       const token = response.data.token;
-
-      // You may store the token in a secure way (e.g., localStorage) for future requests
 
       console.log("Login successful");
     } catch (error) {
       console.error("Login failed", error);
     }
   };
-
-  const [mode, setMode] = useState("student"); // Set default mode to 'student'
 
   const switchToStudent = () => {
     setMode("student");
@@ -34,7 +31,7 @@ const Login = () => {
     setMode("instructor");
   };
 
-    
+
   return (
     <>
       <div className="flex flex-row items-center justify-center">
@@ -45,30 +42,31 @@ const Login = () => {
           <img src="src/images/Logo.svg" alt="" />
           <form
             className="flex flex-col mt-10"
-            
+
             style={{ width: "444px" }}
           >
             <h1 className="text-center text-5xl font-Grish">Login</h1>
             <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
               <button
-                className={`bg-white text-orange-400 w-24 rounded-full p-2 ${
-                  mode === "student" ? "border-2 border-orange-400" : ""
-                }`}
+                className={`ml-3 p-2 ${mode === "student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
+                  }`}
                 onClick={switchToStudent}
+                type="button"
               >
                 Student
               </button>
               <button
-                className={`ml-5 p-2 text-white ${
-                  mode === "instructor" ? "border-2 border-white" : ""
-                }`}
+                className={`ml-3 p-2 ${mode === "instructor" ? "border-2 bg-white w-24 text-orange-400 rounded-full " : "text-white"
+                  }`}
                 onClick={switchToInstructor}
+                type="button"
               >
                 Instructor
               </button>
             </div>
 
-            
+            {mode === "student" ? <Form /> : <Form />}
+
           </form>
         </div>
         <div
