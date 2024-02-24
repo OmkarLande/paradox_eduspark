@@ -3,12 +3,9 @@ import React from "react";
 function Login() {
   return (
     <>
-      <div
-        className="flex flex-row  items-center justify-center"
-        
-      >
+      <div className="flex flex-row  items-center justify-center">
         <div
-          className="mt-16 flex flex-col items-center justify-center "
+          className="mt-8 flex flex-col items-center justify-center "
           style={{ height: "100%", width: "50%" }}
         >
           <img src="src/images/Logo.svg" alt="" />
@@ -19,6 +16,10 @@ function Login() {
             style={{ width: "444px" }}
           >
             <h1 className="text-center text-5xl font-Grish ">Login</h1>
+            <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
+                <button className="bg-white text-orange-400 w-24 rounded-full p-2">Student</button>          
+                 <button className="ml-5 p-2 text-white">Instructors</button>            
+            </div>
             <div className="mb-6 pt-3  ">
               <label className="block  text-lg  " for="email">
                 Email
@@ -46,7 +47,7 @@ function Login() {
                 Forgot your password?
               </a>
             </div>
-            
+
             <button
               className="bg-orange-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
               type="submit"
@@ -59,9 +60,18 @@ function Login() {
           className=" flex flex-col items-center justify-center bg-sky-400 "
           style={{ height: "100vh", width: "50%" }}
         >
-                  <h1 className="text-center text-white text-5xl font-Grish ">Welcome!!</h1>
-                  <p className="text-center text-white">Discover your passion today...</p>
-                  <img src="src/images/boylogin.svg" className="ml-10" alt="" style={{"width":"70%"}}/>
+          <h1 className="text-center text-white text-5xl font-Grish ">
+            Welcome!!
+          </h1>
+          <p className="text-center text-white">
+            Discover your passion today...
+          </p>
+          <img
+            src="src/images/boylogin.svg"
+            className="ml-10"
+            alt=""
+            style={{ width: "70%" }}
+          />
         </div>
       </div>
     </>
