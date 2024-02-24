@@ -25,6 +25,9 @@ const roomSchema = new mongoose.Schema({
     meetLinks:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"meet"
+    },
+    imageUrl:{
+        type:String,
     }
 
 })
