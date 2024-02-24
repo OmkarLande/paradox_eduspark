@@ -1,6 +1,29 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      // Make a POST request to your backend authentication endpoint
+      const response = await axios.post("your-backend-api/login", {
+        email,
+        password,
+      });
+
+      // Assuming your backend returns a token upon successful log
+      const token = response.data.token;
+
+      // You may store the token in a secure way (e.g., localStorage) for future requests
+
+      console.log("Login successful");
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
+
   const [mode, setMode] = useState("student"); // Set default mode to 'student'
 
   const switchToStudent = () => {
@@ -11,11 +34,7 @@ const Login = () => {
     setMode("instructor");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-  };
-
+    
   return (
     <>
       <div className="flex flex-row items-center justify-center">
@@ -26,7 +45,7 @@ const Login = () => {
           <img src="src/images/Logo.svg" alt="" />
           <form
             className="flex flex-col mt-10"
-            onSubmit={handleSubmit}
+            
             style={{ width: "444px" }}
           >
             <h1 className="text-center text-5xl font-Grish">Login</h1>
@@ -49,47 +68,7 @@ const Login = () => {
               </button>
             </div>
 
-            {mode === "student" || mode === "instructor" ? (
-              <>
-                <div className="mb-6 pt-3">
-                  <label className="block text-lg" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    id="email"
-                    placeholder="Enter email address"
-                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 ${
-                      mode === "student" ? "" : "instructor-style"
-                    }`}
-                  />
-                </div>
-                <div className="mb-6 pt-3">
-                  <label className="block text-lg" htmlFor="password">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 ${
-                      mode === "student" ? "" : "instructor-style"
-                    }`}
-                  />
-                </div>
-                <div className="flex">
-                  <a href="#" className="text-sm mb-6">
-                    Don't have an account? Signup
-                  </a>
-                </div>
-                <button
-                  className="bg-orange-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-                  type="submit"
-                >
-                  Login
-                </button>
-              </>
-            ) : null}
+            
           </form>
         </div>
         <div
