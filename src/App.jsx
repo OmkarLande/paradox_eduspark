@@ -1,3 +1,5 @@
+import Login from "./components/Login";
+
 
 
 function App() {
@@ -5,7 +7,8 @@ function App() {
 
   return (
     <>
-      <h1 className='font-bold'>EduSpark</h1>
+      
+      <Login/>
     </>
   )
 }
