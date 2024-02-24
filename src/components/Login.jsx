@@ -11,6 +11,11 @@ const Login = () => {
     setMode("instructor");
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your login logic here
+  };
+
   return (
     <>
       <div className="flex flex-row items-center justify-center">
@@ -21,8 +26,7 @@ const Login = () => {
           <img src="src/images/Logo.svg" alt="" />
           <form
             className="flex flex-col mt-10"
-            method="POST"
-            action="#"
+            onSubmit={handleSubmit}
             style={{ width: "444px" }}
           >
             <h1 className="text-center text-5xl font-Grish">Login</h1>
@@ -45,7 +49,7 @@ const Login = () => {
               </button>
             </div>
 
-            {mode === 'student' && (
+            {mode === "student" || mode === "instructor" ? (
               <>
                 <div className="mb-6 pt-3">
                   <label className="block text-lg" htmlFor="email">
@@ -55,7 +59,9 @@ const Login = () => {
                     type="text"
                     id="email"
                     placeholder="Enter email address"
-                    className="bg-sky-400 rounded w-full placeholder:text-white p-3"
+                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 ${
+                      mode === "student" ? "" : "instructor-style"
+                    }`}
                   />
                 </div>
                 <div className="mb-6 pt-3">
@@ -66,7 +72,9 @@ const Login = () => {
                     type="password"
                     id="password"
                     placeholder="Enter password"
-                    className="bg-sky-400 rounded w-full placeholder:text-white p-3"
+                    className={`bg-sky-400 rounded w-full placeholder:text-white p-3 ${
+                      mode === "student" ? "" : "instructor-style"
+                    }`}
                   />
                 </div>
                 <div className="flex">
@@ -81,7 +89,7 @@ const Login = () => {
                   Login
                 </button>
               </>
-            )}
+            ) : null}
           </form>
         </div>
         <div
