@@ -18,14 +18,18 @@ const roomSchema = new mongoose.Schema({
         ref:"user",
         required:true,
     },
-    studentEnrolled:{
+    studentEnrolled:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",
-    },
+    }],
     meetLinks:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"meet"
-    }
+    },
+    pendingStudents: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'user',
+    }]
 
 })
 
