@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios'
 
 function Login() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      // Make a POST request to your backend authentication endpoint
+      const response = await axios.post('your-backend-api/login', {
+        email,
+        password,
+      });
+
+      // Assuming your backend returns a token upon successful login
+      const token = response.data.token;
+
+      // You may store the token in a secure way (e.g., localStorage) for future requests
+
+      console.log('Login successful');
+    } catch (error) {
+      console.error('Login failed', error);
+    }
+  };
   return (
     <>
       <div
@@ -27,7 +50,8 @@ function Login() {
                 type="text"
                 id="email"
                 placeholder="Enter email address"
-                className="bg-sky-400 rounded w-full placeholder:text-white  p-3   "
+                className="bg-sky-400 rounded w-full placeholder:text-white  p-3"
+                onChange={(e)=>setEmail(e.target.value)}
               />
             </div>
             <div className="mb-6 pt-3 ">
@@ -39,6 +63,7 @@ function Login() {
                 id="email"
                 placeholder="Enter password"
                 className="bg-sky-400 rounded w-full placeholder:text-white  p-3   "
+                onChange={e=>setPassword(e.target.value)}
               />
             </div>
             <div className="flex justify-end ">
@@ -50,6 +75,7 @@ function Login() {
             <button
               className="bg-orange-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
               type="submit"
+              onClick={handleLogin}
             >
               Login
             </button>
