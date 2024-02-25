@@ -263,9 +263,14 @@ async function getRoomsForStudent(req, res) {
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
         }
-
-        // Get the rooms where the student is enrolled
-        const rooms = student.rooms;
+        const roomIds = student.rooms;
+        const rooms = await Promise.all(roomIds.map(async roomId => {
+            const room = await Rooms.findById(roomId);
+            return {
+                roomName: room.roomName,
+                roomDescription: room.roomDescription
+            };
+        }));
 
         res.json({ rooms });
     } catch (error) {
