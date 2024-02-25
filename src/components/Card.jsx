@@ -29,6 +29,7 @@ const Card = () => {
 
             </div>
           </div>
+        </div>
         </Link>
       ))}
     </div>
