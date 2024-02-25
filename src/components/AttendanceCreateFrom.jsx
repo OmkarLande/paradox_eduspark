@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 function Attendance() {
   const [question, setQuestion] = useState("");
@@ -6,27 +8,47 @@ function Attendance() {
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [correctoption, setCorrectOption] = useState("");
+  const { roomId } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = {
-      question: question,
-      option1: option1,
-      option2: option2,
-      option3: option3,
-      correctoption: correctoption,
+      ques: question,
+      opt1: option1,
+      opt2: option2,
+      opt3: option3,
+      correctRes: correctoption
     };
 
     try {
-      const response = await fetch("http://localhost:4000/rooms/create",formData, {
-        method: "POST",
-        withCredentials: true,
-        
-      });
+      const authToken = document.cookie
+      ? document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1]
+      : null;
+      
+      if (authToken) {
+        headers["Authorization"] = `Bearer ${authToken.trim()}`;
+      }
+      console.log(authToken);
+      const headers = {
+        "Content-Type": "application/json",
+      };
 
-      if (response.ok) {
+      const response = await axios.post(
+        `http://localhost:4000/attendance/${roomId}/questions`,
+        formData,
+        {
+          headers: headers,
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
         console.log("Data successfully submitted");
-        navigate("/Students");
+        // Perform any necessary action after successful submission
       } else {
         console.error(
           "Failed to submit data. Server returned:",
