@@ -150,7 +150,7 @@ async function allowStudentEnrollment(req, res) {
         }
 
         // Remove the student from pendingStudents and add to studentEnrolled
-        room.pendingStudents = room.pendingStudents.filter(id => id !== studentId);
+        room.pendingStudents = room.pendingStudents.filter(id => id.toString() !== studentId);
         room.studentEnrolled = studentId;
         await room.save();
 
@@ -197,88 +197,142 @@ async function getPendingStudents(req, res) {
 }
 
 
+async function getRoomsCreatedByAdmin(req, res) {
+    try {
+        const { email } = req.params;
 
-const apiKey = "_bI73spSxuunkEiB4dTA";
-const apiSecret = "khrUvU5xkBQ6NkaKuSgAtSRxDsiaEFQF";
+        // Find the user with the provided email
+        const user = await User.findOne({ email });
 
-const payload = {
-    iss: apiKey,
-    exp:((new Date()).getTime()+5000)
-}
+        // Fetch rooms created by the Admin user
+        const rooms = await Rooms.find({ admin: user._id });
 
-const token = jwt.sign(payload, apiSecret)
-
-async function getMeetings(){
-    try{
-        const response = await axios.get('https://api.zoom.us/v2/users/me/meetings',{
-            headers:{
-                'Authorization':`Bearer ${token}`
-            }
+        return res.status(200).json({
+            success: true,
+            rooms
         });
-        res.status(200).json({
-            success:true,
-            data:response.data,
-            message:'Room created successfully',
-         });
-    }catch(error){
-        console.error('Error',error);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        });
     }
 }
 
-async function createMeeting(req, res){
-    try{
-        const {topic, start_time,duration,timezone,agenda} = req.body
-        const response = await axios.post('https://api.zoom.us/v2/users/me/meetings',{
-            topic,
-            type: 1,
-            start_time,
-            duration,
-            timezone,
-            agenda,
-            settings:{
-                host_video:true,
-                participant_video:true,
-                join_before_host:false,
-                mute_upon_entry:true,
-                watermark:false,
-                use_pmi:false,
-                approval_type:0,
-                audio:'both',
-                auto_recording:'none'
-            }
-        },{
-            headers:{
-                'Authorization':`Bearer ${token}`
-            },
+async function getAllEnrolledStudents(req, res) {
+    try {
+        const { roomId } = req.params;
 
-        });
-        const body = response.data;
+        // Find the room by its ID
+        const room = await Rooms.findById(roomId).populate('studentEnrolled');
+
+        // Check if the room exists
+        if (!room) {
+            return res.status(404).json({
+                success: false,
+                message: "Room not found."
+            });
+        }
+
+        // Extract enrolled students from the room
+        const enrolledStudents = room.studentEnrolled;
         
-    }catch(error){
-        console.error('Error',error);
+        return res.status(200).json({
+            success: true,
+            enrolledStudents
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        });
     }
 }
 
-async function authorizeZoom(req,res) {
-    const code = req.query.code;
 
-    try{
-        const response = await axios.post('https://zoom.us/oauth/token',null,{
-            params:{
-                grant_type: 'authorization_code',
-                code:code,
-                redirect_uri: process.env.REDIRECT_URI
-            },
-            headers:{
-                'Authorization':`Basic ${Buffer.from(`${process.env.ZOOM_API_KEY}:${process.env.ZOOM_API_SECRET}`).toString('base64')}`
-            }
-        });
-        res.send(response.data.access_token);    
-    }catch(error){
-        console.error('Error',error);
-        res.send('Error');
-    }
+// const apiKey = "_bI73spSxuunkEiB4dTA";
+// const apiSecret = "khrUvU5xkBQ6NkaKuSgAtSRxDsiaEFQF";
+
+// const payload = {
+//     iss: apiKey,
+//     exp:((new Date()).getTime()+5000)
+// }
+
+// const token = jwt.sign(payload, apiSecret)
+
+// async function getMeetings(){
+//     try{
+//         const response = await axios.get('https://api.zoom.us/v2/users/me/meetings',{
+//             headers:{
+//                 'Authorization':`Bearer ${token}`
+//             }
+//         });
+//         res.status(200).json({
+//             success:true,
+//             data:response.data,
+//             message:'Room created successfully',
+//          });
+//     }catch(error){
+//         console.error('Error',error);
+//     }
+// }
+
+// async function createMeeting(req, res){
+//     try{
+//         const {topic, start_time,duration,timezone,agenda} = req.body
+//         const response = await axios.post('https://api.zoom.us/v2/users/me/meetings',{
+//             topic,
+//             type: 1,
+//             start_time,
+//             duration,
+//             timezone,
+//             agenda,
+//             settings:{
+//                 host_video:true,
+//                 participant_video:true,
+//                 join_before_host:false,
+//                 mute_upon_entry:true,
+//                 watermark:false,
+//                 use_pmi:false,
+//                 approval_type:0,
+//                 audio:'both',
+//                 auto_recording:'none'
+//             }
+//         },{
+//             headers:{
+//                 'Authorization':`Bearer ${token}`
+//             },
+
+//         });
+//         const body = response.data;
+        
+//     }catch(error){
+//         console.error('Error',error);
+//     }
+// }
+
+// async function authorizeZoom(req,res) {
+//     const code = req.query.code;
+
+//     try{
+//         const response = await axios.post('https://zoom.us/oauth/token',null,{
+//             params:{
+//                 grant_type: 'authorization_code',
+//                 code:code,
+//                 redirect_uri: process.env.REDIRECT_URI
+//             },
+//             headers:{
+//                 'Authorization':`Basic ${Buffer.from(`${process.env.ZOOM_API_KEY}:${process.env.ZOOM_API_SECRET}`).toString('base64')}`
+//             }
+//         });
+//         res.send(response.data.access_token);    
+//     }catch(error){
+//         console.error('Error',error);
+//         res.send('Error');
+//     }
     
-};
+// };
 
-module.exports = { authorizeZoom, createMeeting, getMeetings, roomCreate, applyFromEmail, allowStudentEnrollment, getPendingStudents };
+module.exports = { getAllEnrolledStudents, roomCreate, applyFromEmail, allowStudentEnrollment, getPendingStudents, getRoomsCreatedByAdmin};

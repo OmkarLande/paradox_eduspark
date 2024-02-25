@@ -77,6 +77,14 @@ exports.login = async (req, res) => {
                 message: 'User not exists',
             });
         }
+        
+        if(user.role !== role){
+            return res.status(403).json({
+                success: false,
+                message: 'Role is not correct'
+            })
+        }
+
         //passCheck?
         if (await bcrypt.compare(password, user.password)) {
 
