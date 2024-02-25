@@ -30,7 +30,7 @@ const Card = (props) => {
   return (
     <div className="flex flex-row flex-wrap">
       
-      <Link to="/Students">
+      <Link to={`/Students/${props.roomId}`}>
         
         <div
             className="card w-72 h-72 m-2 shadow-xl"

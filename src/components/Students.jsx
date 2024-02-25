@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
@@ -6,16 +6,67 @@ import RoomMentor from "./RoomMentor";
 import { MdPersonAdd } from "react-icons/md";
 import Attendance from "./AttendanceCreateFrom";
 import Zoom from "./Zoom";
-import { Link } from "react-router-dom";
+import { Link, useParams  } from "react-router-dom";
 import { RiDashboardFill } from "react-icons/ri";
+import axios from 'axios'
 
 function Students() {
+  const { roomId } = useParams();
+  const [students, setStudents] = useState([]);
   const [mode, setMode] = useState("room");
-  const [students, setStudents] = useState("exist");
+  // const [students, setStudents] = useState("exist");
+  const [loading, setLoading] = useState(true);
   const displayroom = () => {
     setMode("room");
   };
   
+  useEffect(() => {
+    const fetchEnrolledStudents = async () => {
+      try {
+        setLoading(true);
+        
+        const authToken = document.cookie
+      ? document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1]
+      : null;
+      
+      if (authToken) {
+        headers["Authorization"] = `Bearer ${authToken.trim()}`;
+      }
+      console.log(authToken);
+      const headers = {
+        "Content-Type": "application/json",
+      };
+  
+        const response = await axios.get(
+          `http://localhost:4000/rooms/${roomId}/enrolled-students`,
+          {
+            headers: headers,
+            withCredentials: true
+          }
+        );
+  
+        // Extract names and emails from the response
+        const enrolledStudents = response.data.enrolledStudents.map(student => ({
+          name: student.name,
+          email: student.email
+        }));
+  
+        setStudents(enrolledStudents);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching enrolled students:", error);
+        setLoading(false);
+      }
+    };
+  
+    fetchEnrolledStudents();
+  }, [roomId]);
+
+  
+
   const displayexist = () => {
     setStudents("exist");
   };
@@ -99,15 +150,20 @@ function Students() {
                 </button>
               </div>
               <div className="flex flex-col mt-5">
-                {students === "exist" && (
+                {/* {students === "exist" && (
+                  {studentsmap(stud =>(`
                   <div>
                     <ul className="">
                       <li className="text-xl w-5/5 p-4 bg-slate-200 rounded-xl font-semibold">
-                        Siddhesh
+                        {
+                          ${stud.name}, ${stud.email}
+                        }
                       </li>
                     </ul>
                   </div>
-                )}{" "}
+                  `))} */}
+                  
+                {/* )}{" "} */}
                 {students === "pending" && (
                   <div>
                     <ul className="">
