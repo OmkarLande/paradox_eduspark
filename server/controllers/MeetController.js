@@ -15,7 +15,7 @@ exports.createMeetLink = async (req, res) => {
         // Update room with the new meet link
         const room = await Room.findByIdAndUpdate(roomId, { $set: { meetLinks: meet._id } });
 
-        res.status(201).json({ message: 'Meeting link created successfully', room, meet });
+        res.status(200).json({ message: 'Meeting link created successfully', room, meet });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
