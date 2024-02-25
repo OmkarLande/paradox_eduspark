@@ -33,7 +33,7 @@ const Card = () => {
         </Link>
       ))}
     </div>
-  );
-};
+  )
+      }
 
 export default Card;

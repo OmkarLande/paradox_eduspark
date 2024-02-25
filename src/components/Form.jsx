@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
-import UserContext from './contexts/UserContext';
+import axios from 'axios'
+
 function Form(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,33 +16,27 @@ function Form(props) {
       "email": email,
       "password": password,
       "role": mode
-    }
+    };
+
     try {
-      const response = await fetch('http://localhost:4000/user/login', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    
-      if (response.ok) {
-        console.log('Data successfully submitted');
-        const { token } = await response.json();
-        localStorage.setItem('token', token);
+        const response = await axios.post('http://localhost:4000/user/login', formData, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true
+        });
 
-    // Redirect the user to the dashboard
-        (mode === 'Student') ?navigate('/dashboardstud'):navigate('/dashboard')
-
-      } else {
-        console.error('Failed to submit data. Server returned:', response.status);
-      }
+        if (response.status === 200) {
+            console.log('Data successfully submitted');
+            (mode === 'Student') ? navigate('/dashboardstud') : navigate(`/dashboard/${email}`);
+        } else {
+            console.error('Failed to submit data. Server returned:', response.status);
+        }
     } catch (error) {
-      console.error('Error:', error);
+        console.error('Error:', error);
     }
-    
+};
 
-  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-6 pt-3">

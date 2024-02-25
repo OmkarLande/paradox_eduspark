@@ -4,42 +4,30 @@ import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import Card from "./Card";
 import RoomMentor from "./RoomMentor";
-import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const DashboardMentor = () => {
+  const { email } = useParams();
   const [mode, setMode] = useState("card");
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
+  const [rooms, setRooms] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
   
     const fetchData = async () => {
-      console.log(1)
       try {
         setLoading(true);
-        console.log(2)
-
-        const authToken = localStorage.getItem('token');
-        console.log(authToken)
-        if (!authToken) {
-          throw new Error('No authToken found in localStorage');
-        }
-
-        console.log(4)
-        const response = await fetch('http://localhost:4000/rooms/admin/sona@example.com', {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
+        const response = await axios.get(`http://localhost:4000/rooms/admin/${email}`, {
+          withCredentials: true
         });
 
-        if (!response.ok) {
+        if (response.status === 200) {
+          setRooms(response.data.rooms); // Set rooms data from the response
+        } else {
           throw new Error('Network response was not ok');
         }
-
-        const result = await response.json();
-        console.log(result)
-        setData(result);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -48,7 +36,7 @@ const DashboardMentor = () => {
     };
 
     fetchData();
-  }, []);
+  }, [email]);
 
   const displayCard = () => {
     setMode("card");
@@ -96,7 +84,12 @@ const DashboardMentor = () => {
           ) : error ? (
             <p>Error: {error}</p>
           ) : (
-            (mode === "card" && <Card data={data} />) || (mode === "form" && <RoomMentor />)
+            (mode === "card" && rooms.map(room => (
+              <div key={room._id}>
+                <h3>{room.roomName}</h3>
+                <p>{room.roomDescription}</p>
+              </div>
+            ))) || (mode === "form" && <RoomMentor />)
           )}
         </div>
       </div>

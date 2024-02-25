@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element:<Signup/> ,
   },
   {
-    path: `/dashboard`,
+    path: "/dashboard/:email",
     element : <DashboardMentor/>
   },
   {
