@@ -5,7 +5,7 @@ import { IoMdAddCircle } from "react-icons/io";
 import Card from "./Card";
 import RoomMentor from "./RoomMentor";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const DashboardMentor = () => {
   const { email } = useParams();
@@ -86,8 +86,7 @@ const DashboardMentor = () => {
           ) : (
             (mode === "card" && rooms.map(room => (
               <div key={room._id}>
-                <h3>{room.roomName}</h3>
-                <p>{room.roomDescription}</p>
+                <Card name= {room.roomName} desc = {room.roomDescription}></Card>
               </div>
             ))) || (mode === "form" && <RoomMentor />)
           )}

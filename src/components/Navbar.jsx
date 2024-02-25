@@ -1,11 +1,13 @@
 import React from "react";
+import logo from '../images/Logo.svg'
+import avatar from '../images/avatar.svg'
 
 function Navbar() {
   return (
     <div className="navbar flex justify-center items-center bg-white shadow-lg">
       <div className="flex-1 w-max">
         <a className="  ">
-          <img src="src/images/Logo.svg" className="w-48" alt="" />
+          <img src={logo} className="w-48" alt="" />
         </a>
       </div>
       <div className="flex-none gap-2">
@@ -17,7 +19,7 @@ function Navbar() {
           >
             <div className="avatar online">
               <div className=" rounded-full">
-                <img src="src/images/avatar.svg" />
+                <img src={avatar} />
               </div>
             </div>
           </div>
