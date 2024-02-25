@@ -21,7 +21,7 @@ async function raiseQuestion(req, res) {
         // Save the question
         await newQuestion.save();
 
-        return res.status(201).json({
+        return res.status(200).json({
             success: true,
             message: "Question raised successfully.",
             newQuestion
