@@ -19,7 +19,7 @@ const Card = () => {
         <div
             className="card w-72 h-72 m-2 shadow-xl "
             key={index}
-            style={{"backgroundColor":color,}}
+            style={{"backgroundColor":color}}
         >
           <div className="card-body flex flex-col-reverse items-center  p-2 ">
             <div className="mb-5 flex flex-col items-center text-white">
@@ -27,7 +27,8 @@ const Card = () => {
                 <p className="text-xl font-sans">Data Structres & Algorithms</p>
                 <p className="">By Siddhesh Wayal</p>
 
-            </div>
+              </div>
+              </div>
           </div>
         </Link>
       ))}
