@@ -1,6 +1,7 @@
 import React from "react";
 import logo from '../images/Logo.svg'
-import avatar from '../images/avatar.svg'
+import avatar from '../images/avatar.svg';
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -28,9 +29,11 @@ function Navbar() {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white text-black rounded-box w-52"
           >
             <a>
+              <Link to='/'>
               <button className="btn btn-error w-full py-0 text-white">
                 LogOut
-              </button>
+                </button>
+                </Link>
             </a>
           </ul>
         </div>
