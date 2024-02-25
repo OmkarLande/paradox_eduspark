@@ -9,6 +9,7 @@ import DashboardMentor from './components/DashboardMentor';
 import DashboardStudent from './components/DashboardStudent';
 import Students from './components/Students';
 import StudRoom from './components/StudRoom';
+import RoomMentor from './components/RoomMentor';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     element:<Signup/> ,
   },
   {
-    path: "/dashboard",
+    path: `/dashboard`,
     element : <DashboardMentor/>
   },
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/studroom",
     element : <StudRoom/>
+  },
+  {
+    path: "/create-room",
+    element : <RoomMentor/>
   },
 ]);
 

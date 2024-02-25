@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
+import UserContext from './contexts/UserContext';
 function Form(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const mode = props.mode
   const navigate = useNavigate()
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +27,10 @@ function Form(props) {
     
       if (response.ok) {
         console.log('Data successfully submitted');
+        const { token } = await response.json();
+        localStorage.setItem('token', token);
+
+    // Redirect the user to the dashboard
         (mode === 'Student') ?navigate('/dashboardstud'):navigate('/dashboard')
 
       } else {
@@ -64,9 +71,8 @@ function Form(props) {
         />
       </div>
       <div className="flex">
-        <a href="#" className="text-sm mb-6">
+  
           Don't have an account? <Link to="/signup" className='text-orange-400'>Signup</Link> 
-        </a>
       </div>
       <button
         className="bg-orange-400 w-full text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"

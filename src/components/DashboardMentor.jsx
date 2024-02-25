@@ -4,6 +4,7 @@ import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import Card from "./Card";
 import RoomMentor from "./RoomMentor";
+import { Link } from "react-router-dom";
 
 const DashboardMentor = () => {
   const [mode, setMode] = useState("card");
@@ -12,20 +13,21 @@ const DashboardMentor = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+  
     const fetchData = async () => {
       console.log(1)
       try {
         setLoading(true);
         console.log(2)
 
-        const authToken = localStorage.getItem('authToken');
-        console.log(3)
+        const authToken = localStorage.getItem('token');
+        console.log(authToken)
         if (!authToken) {
           throw new Error('No authToken found in localStorage');
         }
 
         console.log(4)
-        const response = await fetch('http://localhost:4000/rooms/admin/og@gmail.com', {
+        const response = await fetch('http://localhost:4000/rooms/admin/sona@example.com', {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
@@ -67,23 +69,23 @@ const DashboardMentor = () => {
           <ul className="flex flex-col space-y-5  ">
             <div className="bg-sky-400 rounded-xl text-white">
               <li className="">
-                <a href="#" className="flex flex-row items-center p-2 ">
+                <div href="#" className="flex flex-row items-center p-2 ">
                   <FaHome />
-                  <button onClick={displayCard}>
-                    <p className="ml-2"> ExistingRoom</p>
+                  <button className="ml-2"onClick={displayCard}>
+                    ExistingRoom
                   </button>
-                </a>
+                </div>
               </li>
             </div>
 
             <div className="hover:shadow-md rounded-xl">
               <li className="">
-                <a href="#" className="flex flex-row items-center p-2 ">
+                <div className="flex flex-row items-center p-2 ">
                   <IoMdAddCircle />
-                  <button onClick={displayForm}>
-                    <p className="ml-2"> Add New Room</p>
-                  </button>
-                </a>
+                  <Link to = '/create-room' className="ml-2" >
+                     Add New Room
+                  </Link>
+                </div>
               </li>
             </div>
           </ul>
