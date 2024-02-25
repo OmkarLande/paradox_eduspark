@@ -1,31 +1,49 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 function RoomMentor() {
   const [roomname, setRoomName] = useState("");
   const [roomdes, setRoomDes] = useState("");
   const [age, setAge] = useState(0);
-    const handleSubmit = async (e) => {
+
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(document.cookie)
-
+    
     const formData = {
-      roomname: roomname,
-      roomdes : roomdes,
-      age: age,
+      roomName: roomname,
+      roomDescription: roomdes,
+      ageGroup: age,
     };
-
+    
     try {
-      const response = await fetch("http://localhost:4000/rooms/create", {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const authToken = document.cookie
+      ? document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1]
+      : null;
+      
+      console.log(authToken);
+      const headers = {
+        "Content-Type": "application/json",
+      };
 
-      if (response.ok) {
+      if (authToken) {
+        headers["Authorization"] = `Bearer ${authToken.trim()}`;
+      }
+      const response = await axios.post(
+        "http://localhost:4000/rooms/create",
+        formData,
+        {
+          headers: headers,
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
         console.log("Data successfully submitted");
-        navigate("/");
+        // Perform any necessary action after successful submission
       } else {
         console.error(
           "Failed to submit data. Server returned:",
@@ -41,7 +59,6 @@ function RoomMentor() {
     <div className="">
       <form
         onSubmit={handleSubmit}
-        method="POST"
         className="flex flex-col space-y-4 shadow-xl p-3 px-5 mt-10"
         style={{ width: "460px" }}
       >
@@ -54,7 +71,7 @@ function RoomMentor() {
           </label>
           <input
             onChange={(e) => {
-              setRoomName(e.target.value) ;
+              setRoomName(e.target.value);
             }}
             type="text"
             id="name"
@@ -68,11 +85,11 @@ function RoomMentor() {
           </label>
           <input
             onChange={(e) => {
-             setRoomDes(e.target.value) ;
+              setRoomDes(e.target.value);
             }}
             type="text"
             id="description"
-            placeholder="Enter a name for the room"
+            placeholder="Enter a description for the room"
             className={`bg-sky-400 rounded w-full placeholder:text-white p-3 `}
           />
         </div>
@@ -82,7 +99,7 @@ function RoomMentor() {
           </label>
           <input
             onChange={(e) => {
-             setAge( e.target.value);
+              setAge(e.target.value);
             }}
             type="number"
             id="number"
@@ -90,12 +107,10 @@ function RoomMentor() {
             className={`bg-sky-400 rounded w-full placeholder:text-white p-3 `}
           />
         </div>
-        
 
         <button
           className="bg-orange-400 w-full text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
           type="submit"
-          // onClick={handleLogin}
         >
           Create room
         </button>

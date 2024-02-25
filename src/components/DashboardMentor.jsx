@@ -4,50 +4,38 @@ import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import Card from "./Card";
 import RoomMentor from "./RoomMentor";
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const DashboardMentor = () => {
-  const { email } = useParams()
+  const { email } = useParams();
   const [mode, setMode] = useState("card");
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
+  const [rooms, setRooms] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-          setLoading(true);
+        setLoading(true);
+        const response = await axios.get(`http://localhost:4000/rooms/admin/${email}`, {
+          withCredentials: true
+        });
 
-          const response = await axios.get(`http://localhost:4000/rooms/admin/${email}`, {
-              withCredentials: true
-          });
-
-          // Check if the request was successful (status code 2xx)
-          if (response.status >= 200 && response.status < 300) {
-            const responseData = response.data;
-            // Extract rooms from the response data
-            const rooms = responseData.rooms;
-            // Check if there are rooms available
-            if (rooms && rooms.length > 0) {
-                // Set the first room's name and description
-                setRoomName(rooms[0].roomName);
-                setRoomDescription(rooms[0].roomDescription);
-            } else {
-                setError('No rooms found');
-            }
+        if (response.status === 200) {
+          setRooms(response.data.rooms); // Set rooms data from the response
         } else {
-            throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok');
         }
-    } catch (error) {
+      } catch (error) {
         setError(error.message);
-    } finally {
+      } finally {
         setLoading(false);
-    }
-};
+      }
+    };
 
-  fetchData();
-}, [email]);
+    fetchData();
+  }, [email]);
 
   const displayCard = () => {
     setMode("card");
@@ -95,7 +83,12 @@ const DashboardMentor = () => {
           ) : error ? (
             <p>Error: {error}</p>
           ) : (
-            (mode === "card" && <Card data={data} />) || (mode === "form" && <RoomMentor />)
+            (mode === "card" && rooms.map(room => (
+              <div key={room._id}>
+                <h3>{room.roomName}</h3>
+                <p>{room.roomDescription}</p>
+              </div>
+            ))) || (mode === "form" && <RoomMentor />)
           )}
         </div>
       </div>
