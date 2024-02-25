@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const ZoomStud = () => {
-  const [meetLinks, setMeetLinks] = useState([]);
+  const {rId} = useParams()
+  const [meetLinks, setMeetLinks] = useState('https://us04web.zoom.us/j/79626748997?pwd=9gicFeRZUU3mjOsppterrfx1lE9o8J.1');
 
   useEffect(() => {
     const fetchMeetLinks = async () => {
@@ -23,7 +25,7 @@ const ZoomStud = () => {
       };
 
       const response = await axios.get(
-        "http://localhost:4000/meet/list",
+        `http://localhost:4000/meet/${rId}/list`,
         
         {
           headers: headers,
@@ -33,8 +35,8 @@ const ZoomStud = () => {
 
 
         const data = response.data;
-        setMeetLinks(data.meetLinks);
-        console.log(data)
+        setMeetLinks(data.meetLink.link);
+        console.log(meetLinks)
       } catch (error) {
         console.error("Error fetching meet links:", error);
         // Handle errors here, e.g., set an error state or display a message to the user
@@ -49,17 +51,7 @@ const ZoomStud = () => {
     <div>
       <div className="p-2">
         <ul className="mt-2">
-          {meetLinks.map((meetLink, index) => (
-            <li
-              key={index}
-              className="text-xl flex flex-row justify-between items-center w-5/5 p-3 bg-slate-200 rounded-xl font-semibold"
-            >
-              
-              <div>
-                <p>MeetLink: {meetLink}</p>
-              </div>
-            </li>
-          ))}
+          <a href={meetLinks}>Join Meet</a> 
         </ul>
       </div>
     </div>

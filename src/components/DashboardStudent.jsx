@@ -1,12 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
-
+import axios from "axios";
 
 import CardStud from "./CardStud";
+import { useParams } from "react-router-dom";
 
 const DashboardStudent =() =>{
+
+  const { email } = useParams();
+  const [rooms, setRooms]= useState([])
+  const [loading, setLoading] = useState(true);
+  const apr= []
+  useEffect(() => {
+  
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const authToken = document.cookie
+        ? document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1]
+        : null;
+  
+        if (authToken) {
+          headers["Authorization"] = `Bearer ${authToken.trim()}`;
+        }
+        
+        const headers = {
+          "Content-Type": "application/json",
+        };
+  
+        const response = await axios.get(
+          `http://localhost:4000/rooms/student`,
+          
+          {
+            headers: headers,
+            withCredentials: true,
+          }
+        );
+
+        if (response.status === 200) {
+          const enrolledStudents = response.data.rooms.map(room => ({
+            name: room.roomName,
+            desc: room.roomDescription,
+            id: room.roomId
+          }));
+          console.log(enrolledStudents)
+          setRooms(enrolledStudents)
+
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
     
 
   return (
@@ -30,9 +86,13 @@ const DashboardStudent =() =>{
 
             
           </ul>
+
         </div>
         <div className="w-4/5 p-4 flex flex-row  space-x-3">
-          <CardStud/>
+          
+        {rooms.map((student, index) => (
+              <li key={student.id}><CardStud rId ={student.id} name = {student.name} desc = {student.desc}/></li>
+            ))}
                   
         </div>
       </div>
