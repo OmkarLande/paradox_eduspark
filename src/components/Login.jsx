@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Form from './Form'
+import Form from './Form';
 
 const Login = () => {
   const [mode, setMode] = useState("Student");

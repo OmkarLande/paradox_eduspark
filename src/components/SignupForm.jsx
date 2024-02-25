@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SignupForm(props) {
   const [name, setName] = useState('');
@@ -9,7 +9,7 @@ function SignupForm(props) {
   const [password, setPassword] = useState('');
   const mode = props.mode
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (e) => {
@@ -33,7 +33,7 @@ function SignupForm(props) {
     
       if (response.ok) {
         console.log('Data successfully submitted');
-        history.push('/')
+        navigate('/')
       } else {
         console.error('Failed to submit data. Server returned:', response.status);
       }
@@ -116,17 +116,10 @@ function SignupForm(props) {
         className="bg-sky-400 rounded w-full placeholder:text-white  p-3   "
       />
     </div>
-<<<<<<< HEAD
-    <div className="flex text-black">
-      <a href="#" className="text-sm  mb-6">
-       Already have an account? Login
-      </a>
-=======
     <div className="flex ">
       
   
 
->>>>>>> 47720012b47f69dcf1bea3108e20e1b44ca73dda
     </div>
     
     <button
