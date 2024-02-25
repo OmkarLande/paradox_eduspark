@@ -6,6 +6,8 @@ function RoomMentor() {
   const [age, setAge] = useState(0);
     const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(document.cookie)
+
     const formData = {
       roomname: roomname,
       roomdes : roomdes,

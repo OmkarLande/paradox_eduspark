@@ -24,10 +24,10 @@ const queSchema = new mongoose.Schema({
     markedRes:{
         type: String,
     },
-    attemptedStudents:{
+    attemptedStudents:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",
-    },
+    }],
     adminAssigned:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",
