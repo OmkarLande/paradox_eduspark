@@ -65,7 +65,7 @@ function Form(props) {
       </div>
       <div className="flex">
         <a href="#" className="text-sm mb-6">
-          Don't have an account? <Link to="/signup" className='text-orange-400'>Login</Link> 
+          Don't have an account? <Link to="/signup" className='text-orange-400'>Signup</Link> 
         </a>
       </div>
       <button
