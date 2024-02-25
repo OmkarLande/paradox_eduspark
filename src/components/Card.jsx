@@ -12,7 +12,7 @@ const Card = () => {
   ];
   
   return (
-    <div className="flex flex-row flex-wrap" >
+    <div className="flex flex-row flex-wrap">
       {colors.map((color, index) => (
       <Link to="/Students">
         
@@ -26,14 +26,13 @@ const Card = () => {
               <h2 className="card-title  font-Grish text-3xl">DSA </h2>
                 <p className="text-xl font-sans">Data Structres & Algorithms</p>
                 <p className="">By Siddhesh Wayal</p>
+
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
       ))}
     </div>
   );
 };
-
 
 export default Card;

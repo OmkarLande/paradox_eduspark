@@ -4,6 +4,7 @@ import Form from './Form';
 
 const Login = () => {
   const [mode, setMode] = useState("Student");
+
   const switchToStudent = () => {
     setMode("Student");
   };
@@ -11,7 +12,6 @@ const Login = () => {
   const switchToInstructor = () => {
     setMode("Admin");
   };
-
 
   return (
     <>
@@ -23,13 +23,12 @@ const Login = () => {
           <img src="src/images/Logo.svg" alt="" />
           <div
             className="flex flex-col mt-10"
-
             style={{ width: "444px" }}
           >
             <h1 className="text-center text-5xl font-Grish text-black">Login</h1>
             <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
               <button
-                className={` p-2 ${mode === "Student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
+                className={`p-2 ${mode === "Student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
                   }`}
                 onClick={switchToStudent}
                 type="button"
@@ -46,7 +45,7 @@ const Login = () => {
               </button>
             </div>
 
-            {mode === "student" ? <Form mode={mode} /> : <Form mode={mode} />}
+            {mode === "Student" ? <Form mode={mode} /> : <Form mode={mode} />}
 
           </div>
         </div>
