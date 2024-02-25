@@ -268,7 +268,8 @@ async function getRoomsForStudent(req, res) {
             const room = await Rooms.findById(roomId);
             return {
                 roomName: room.roomName,
-                roomDescription: room.roomDescription
+                roomDescription: room.roomDescription,
+                roomId: room._id
             };
         }));
 
