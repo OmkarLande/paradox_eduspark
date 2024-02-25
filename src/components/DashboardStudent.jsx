@@ -2,8 +2,9 @@ import React from "react";
 import Navbar from "./Navbar";
 import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
-import Card from "./Card";
-import RoomMentor from "./RoomMentor";
+
+
+import CardStud from "./CardStud";
 
 const DashboardStudent =() =>{
     
@@ -31,7 +32,7 @@ const DashboardStudent =() =>{
           </ul>
         </div>
         <div className="w-4/5 p-4 flex flex-row  space-x-3">
-          <Card/>
+          <CardStud/>
                   
         </div>
       </div>
