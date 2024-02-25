@@ -121,12 +121,12 @@ function Students() {
          
             <div className="w-4/5">
               <div className="flex flex-row space-x-5">
-                <button
+                {/* <button
                   className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
                   onClick={displayexist}
                 >
                   Existing Students{" "}
-                </button>
+                </button> */}
                 <button
                   className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
                   onClick={displaypending}
