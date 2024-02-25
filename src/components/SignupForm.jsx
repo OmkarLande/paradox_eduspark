@@ -116,17 +116,10 @@ function SignupForm(props) {
         className="bg-sky-400 rounded w-full placeholder:text-white  p-3   "
       />
     </div>
-<<<<<<< HEAD
     <div className="flex text-black">
       <a href="#" className="text-sm  mb-6">
        Already have an account? Login
       </a>
-=======
-    <div className="flex ">
-      
-  
-
->>>>>>> 47720012b47f69dcf1bea3108e20e1b44ca73dda
     </div>
     
     <button
