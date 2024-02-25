@@ -28,8 +28,8 @@ function StudRoom() {
       <Navbar />
       <div className="flex flex-row ">
         <div
-          className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 "
-          style={{ height: "150vh" }}
+          className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 min-h-screen"
+          
         >
           {/* Sidebar content here */}
           <ul className="flex flex-col space-y-5  ">

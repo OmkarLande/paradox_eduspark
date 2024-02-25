@@ -51,8 +51,8 @@ const DashboardMentor = () => {
       <Navbar />
       <div className="flex flex-row ">
         <div
-          className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 "
-          style={{ height: "100vh" }}
+          className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 min-h-screen"
+          // style={{ height: "150vh" }}
         >
           <ul className="flex flex-col space-y-5  ">
             <div className="bg-sky-400 rounded-xl text-white">
@@ -78,14 +78,14 @@ const DashboardMentor = () => {
             </div>
           </ul>
         </div>
-        <div className="w-4/5 p-4 flex flex-row justify-center space-x-3">
+        <div className="w-4/5 p-4 flex flex-row flex-wrap justify-center items-center space-x-3">
           {loading ? (
             <p>Loading...</p>
           ) : error ? (
             <p>Error: {error}</p>
           ) : (
             (mode === "card" && rooms.map(room => (
-              <div key={room._id}>
+              <div className=""  key={room._id}>
                 <Card name= {room.roomName} desc = {room.roomDescription}></Card>
               </div>
             ))) || (mode === "form" && <RoomMentor />)

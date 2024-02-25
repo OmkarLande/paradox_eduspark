@@ -38,8 +38,8 @@ const Card = (props) => {
         >
           <div className="card-body flex justify-center  items-center  ">
             <div className=" flex flex-col  items-center text-white">
-              <h2 className="  font-Grish text-3xl">{name} </h2>
-                <p className="text-xl font-sans">{desc}</p>
+              <h2 className=" font-Grish text-3xl">{name} </h2>
+                <p className="text-center text-xl font-sans">{desc}</p>
 
               </div>
               </div>
