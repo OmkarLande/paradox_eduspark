@@ -4,8 +4,11 @@ import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import Card from "./Card";
 import RoomMentor from "./RoomMentor";
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const DashboardMentor = () => {
+  const { email } = useParams()
   const [mode, setMode] = useState("card");
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -13,40 +16,38 @@ const DashboardMentor = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(1)
       try {
-        setLoading(true);
-        console.log(2)
+          setLoading(true);
 
-        const authToken = localStorage.getItem('authToken');
-        console.log(3)
-        if (!authToken) {
-          throw new Error('No authToken found in localStorage');
+          const response = await axios.get(`http://localhost:4000/rooms/admin/${email}`, {
+              withCredentials: true
+          });
+
+          // Check if the request was successful (status code 2xx)
+          if (response.status >= 200 && response.status < 300) {
+            const responseData = response.data;
+            // Extract rooms from the response data
+            const rooms = responseData.rooms;
+            // Check if there are rooms available
+            if (rooms && rooms.length > 0) {
+                // Set the first room's name and description
+                setRoomName(rooms[0].roomName);
+                setRoomDescription(rooms[0].roomDescription);
+            } else {
+                setError('No rooms found');
+            }
+        } else {
+            throw new Error('Network response was not ok');
         }
-
-        console.log(4)
-        const response = await fetch('http://localhost:4000/rooms/admin/og@gmail.com', {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const result = await response.json();
-        console.log(result)
-        setData(result);
-      } catch (error) {
+    } catch (error) {
         setError(error.message);
-      } finally {
+    } finally {
         setLoading(false);
-      }
-    };
+    }
+};
 
-    fetchData();
-  }, []);
+  fetchData();
+}, [email]);
 
   const displayCard = () => {
     setMode("card");
