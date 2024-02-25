@@ -6,7 +6,8 @@ const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const userRoutes = require('./routes/UserRoutes')
 const roomRoutes = require('./routes/RoomRoutes')
-const axios = require('axios')
+const attendanceRoutes = require('./routes/AttendanceRotes')
+const meetRoutes = require('./routes/MeetRoutes')
 
 require('dotenv').config()
 const port = process.env.PORT || 5000
@@ -37,7 +38,8 @@ app.use(
 
 app.use('/user', userRoutes)
 app.use('/rooms', roomRoutes)
-
+app.use('/attendance', attendanceRoutes)
+app.use('/meet', meetRoutes)
 // app.get('/' , (req , res)=>{
 
 //    res.send('hello from simple server :)')
