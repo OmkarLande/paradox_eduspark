@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 function Form(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const mode = props.mode
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +24,8 @@ function Form(props) {
     
       if (response.ok) {
         console.log('Data successfully submitted');
+        (mode === 'Student') ?navigate('/dashboardstud'):navigate('/dashboard')
+
       } else {
         console.error('Failed to submit data. Server returned:', response.status);
       }

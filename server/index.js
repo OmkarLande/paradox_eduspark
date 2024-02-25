@@ -6,7 +6,8 @@ const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const userRoutes = require('./routes/UserRoutes')
 const roomRoutes = require('./routes/RoomRoutes')
-const attendanceRoutes = require('./routes/AttendanceRotes')
+const axios = require('axios')
+
 require('dotenv').config()
 const port = process.env.PORT || 5000
 
@@ -33,9 +34,9 @@ app.use(
 	})
 )
 
+
 app.use('/user', userRoutes)
 app.use('/rooms', roomRoutes)
-app.use('/attendance', attendanceRoutes)
 
 // app.get('/' , (req , res)=>{
 
