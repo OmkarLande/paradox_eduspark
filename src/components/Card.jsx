@@ -30,11 +30,10 @@ const Card = () => {
               </div>
               </div>
           </div>
-        </div>
         </Link>
       ))}
     </div>
-  );
-};
+  )
+      }
 
 export default Card;
