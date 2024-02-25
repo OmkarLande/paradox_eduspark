@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashboardMentor from './components/DashboardMentor';
 import DashboardStudent from './components/DashboardStudent';
 import Students from './components/Students';
+import StudRoom from './components/StudRoom';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/students",
     element : <Students/>
+  },
+  {
+    path: "/studroom",
+    element : <StudRoom/>
   },
 ]);
 
