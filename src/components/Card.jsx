@@ -1,22 +1,38 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function Card() {
+const Card = () => {
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#5733FF",
+    "#FF33E6",
+    "#33FFFF",
+    "#FFD700",
+  ];
+  
   return (
-    <div className="card w-72 h-72 bg-base-100 shadow-xl">
-      <figure>
-        <img
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                  className="h-52"
-        />
-      </figure>
-      <div className="card-body  p-2 flex flex-col items-center " >
-        <h2 className="card-title t ">Room No.1</h2>
-        <p >hey are u there</p>
-      </div>
+    <div className="flex flex-row flex-wrap" >
+      {colors.map((color, index) => (
+      <Link to="/Students">
+        
+        <div
+            className="card w-72 h-72 m-2 shadow-xl "
+            key={index}
+            style={{"backgroundColor":color,}}
+        >
+          <div className="card-body flex flex-col-reverse items-center  p-2 ">
+            <div className="">
+              <h2 className="card-title">Room No.1</h2>
+              <p>hey are u there</p>
+            </div>
+          </div>
+        </div>
+      </Link>
+      ))}
     </div>
-    
   );
-}
+};
+
 
 export default Card;

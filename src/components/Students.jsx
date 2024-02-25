@@ -1,22 +1,20 @@
-import React, {useState } from "react";
+import React,{useState} from "react";
 import Navbar from "./Navbar";
 import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
-import Card from "./Card";
 import RoomMentor from "./RoomMentor";
 
-const DashboardMentor =() =>{
-    const [mode, setMode] = useState("card");
-
-    const displaycard = () => {
-        setMode("card")
+function Students() {
+    const [mode, setMode] = useState("room");
+    const displayroom = () => {
+        setMode("room")
     }
     const displayform = () => {
         setMode("form")
     }
 
   return (
-    <div className="">
+    <>
       <Navbar />
       <div className="flex flex-row ">
         <div
@@ -28,8 +26,11 @@ const DashboardMentor =() =>{
             <div className="bg-sky-400 rounded-xl text-white">
               <li className="">
                 <a href="#" className=" flex flex-row items-center p-2 ">
-                  <FaHome />
-                  <button onClick={displaycard}><p className="ml-2"> ExistingRoom</p></button>     
+                <FaHome />
+                                  
+                  <button onClick={displayroom}>
+                    <p className="ml-2"> ExistingRoom</p>
+                  </button>
                 </a>
               </li>
             </div>
@@ -37,22 +38,22 @@ const DashboardMentor =() =>{
             <div className="hover:shadow-md rounded-xl">
               <li className="">
                 <a href="#" className=" flex flex-row items-center p-2 ">
-                <IoMdAddCircle />
-                  <button onClick={displayform}><p className="ml-2"> Add New Room</p></button>                 
-                  
+                  <IoMdAddCircle />
+                  <button onClick={displayform}>
+                    <p className="ml-2"> Add New Room</p>
+                  </button>
                 </a>
               </li>
             </div>
           </ul>
         </div>
         <div className="w-4/5 p-4 flex flex-row justify-center space-x-3">
-          {/* Page content here */}
-                  {mode === "card" ? <Card/> : <RoomMentor />}
-                  
+                  {/* Page content here */}
+                  {mode === "room" ? (<div>hey</div> ) : (<RoomMentor />)}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default DashboardMentor;
+export default Students;

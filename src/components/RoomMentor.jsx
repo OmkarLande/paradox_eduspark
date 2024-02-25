@@ -1,9 +1,45 @@
-import React from "react";
+import React,{useState} from "react";
 
 function RoomMentor() {
+  const [roomname, setRoomName] = useState("");
+  const [roomdes, setRoomDes] = useState("");
+  const [age, setAge] = useState(0);
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = {
+      roomname: roomname,
+      roomdes : roomdes,
+      age: age,
+    };
+
+    try {
+      const response = await fetch("http://localhost:4000/rooms/create", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        console.log("Data successfully submitted");
+        navigate("/");
+      } else {
+        console.error(
+          "Failed to submit data. Server returned:",
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className="">
       <form
+        onSubmit={handleSubmit}
+        method="POST"
         className="flex flex-col space-y-4 shadow-xl p-3 px-5 mt-10"
         style={{ width: "460px" }}
       >
@@ -16,7 +52,7 @@ function RoomMentor() {
           </label>
           <input
             onChange={(e) => {
-              e.target.value;
+              setRoomName(e.target.value) ;
             }}
             type="text"
             id="name"
@@ -30,7 +66,7 @@ function RoomMentor() {
           </label>
           <input
             onChange={(e) => {
-              e.target.value;
+             setRoomDes(e.target.value) ;
             }}
             type="text"
             id="description"
@@ -44,7 +80,7 @@ function RoomMentor() {
           </label>
           <input
             onChange={(e) => {
-              e.target.value;
+             setAge( e.target.value);
             }}
             type="number"
             id="number"
