@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum:["Admin", "Student"]
     },
-    rooms:{
+    rooms:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:"rooms"
-    }
+    }]
 })
 
 module.exports = mongoose.model("user", userSchema);

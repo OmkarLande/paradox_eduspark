@@ -40,30 +40,29 @@ exports.destroyMeetLink = async (req, res) => {
 
 exports.listMeetLinks = async (req, res) => {
     try {
-        // Get the user ID of the logged-in student from the request object
-        const studentId = req.user.id; // Assuming you have implemented authentication middleware
+        const roomId = req.params.roomId;
+        const room = await Room.findOne({ _id: roomId });
 
-        // Fetch rooms where the student is enrolled
-        const rooms = await Room.find({ studentEnrolled: studentId });
-
-        // Extract meetLinks from the rooms
-        const meetLinks = [];
-        for (const room of rooms) {
-            if (room.meetLinks) {
-                // Find the meeting link associated with the room
-                const meetLink = await Meet.findById(room.meetLinks);
-                if (meetLink) {
-                    meetLinks.push({
-                        roomName: room.roomName,
-                        link: meetLink.link
-                    });
-                }
-            }
+        if (!room) {
+            return res.status(404).json({ message: 'Room not found' });
         }
 
-        res.json({ meetLinks });
+        if (!room.meetLinks || room.meetLinks.length === 0) {
+            return res.status(200).json({ meetLinks: [] });
+        }
+
+        const latestMeetLinkId = room.meetLinks[room.meetLinks.length - 1];
+        const latestMeetLink = await Meet.findById(latestMeetLinkId);
+
+        if (!latestMeetLink) {
+            return res.status(404).json({ message: 'Latest meet link not found' });
+        }
+
+        res.json({ meetLink: { link: latestMeetLink.link } });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+

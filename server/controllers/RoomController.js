@@ -253,8 +253,30 @@ async function getAllEnrolledStudents(req, res) {
   }
 }
 
+async function getRoomsForStudent(req, res) {
+    try {
+        const studentId = req.user.id;
+
+        // Find the student by their ID
+        const student = await User.findById(studentId);
+
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        // Get the rooms where the student is enrolled
+        const rooms = student.rooms;
+
+        res.json({ rooms });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 module.exports = {
   getAllEnrolledStudents,
+  getRoomsForStudent,
   roomCreate,
   applyFromEmail,
   allowStudentEnrollment,

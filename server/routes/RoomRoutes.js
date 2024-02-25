@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {roomCreate, getRoomsCreatedByAdmin, getAllEnrolledStudents, allowStudentEnrollment, applyFromEmail, getPendingStudents} = require('../controllers/RoomController')
+const {roomCreate, getRoomsCreatedByAdmin, getRoomsForStudent, getAllEnrolledStudents, allowStudentEnrollment, applyFromEmail, getPendingStudents} = require('../controllers/RoomController')
 const {auth, isAdmin, isStudent } = require('../middlewares/Auth')
 
 
@@ -14,6 +14,8 @@ router.post('/pending-students', auth, isAdmin, getPendingStudents)
 router.post('/student-allow', auth, isAdmin, allowStudentEnrollment)
 
 router.get('/admin/:email', auth, isAdmin, getRoomsCreatedByAdmin)
+
+router.get('/student', auth, getRoomsForStudent)
 
 router.get('/:roomId/enrolled-students', auth, isAdmin, getAllEnrolledStudents)
 

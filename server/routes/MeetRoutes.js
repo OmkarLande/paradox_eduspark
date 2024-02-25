@@ -7,6 +7,6 @@ const {auth, isAdmin, isStudent} = require('../middlewares/Auth')
 router.post('/publish-link',auth, isAdmin, createMeetLink )
 router.delete('/delete-link/:id', auth, isAdmin, destroyMeetLink)
 
-router.get('/list', auth, isStudent, listMeetLinks)
+router.get('/:roomId/list', auth, isStudent, listMeetLinks)
 
 module.exports = router
