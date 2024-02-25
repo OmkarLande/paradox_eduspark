@@ -3,32 +3,13 @@ import axios from "axios";
 import Form from './Form'
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [mode, setMode] = useState("student");
-
-
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post("your-backend-api/login", {
-        email,
-        password,
-      });
-
-      const token = response.data.token;
-
-      console.log("Login successful");
-    } catch (error) {
-      console.error("Login failed", error);
-    }
-  };
-
+  const [mode, setMode] = useState("Student");
   const switchToStudent = () => {
-    setMode("student");
+    setMode("Student");
   };
 
   const switchToInstructor = () => {
-    setMode("instructor");
+    setMode("Admin");
   };
 
 
@@ -40,7 +21,7 @@ const Login = () => {
           style={{ height: "100%", width: "50%" }}
         >
           <img src="src/images/Logo.svg" alt="" />
-          <form
+          <div
             className="flex flex-col mt-10"
 
             style={{ width: "444px" }}
@@ -48,7 +29,7 @@ const Login = () => {
             <h1 className="text-center text-5xl font-Grish text-black">Login</h1>
             <div className="flex flex-row bg-sky-400 p-1 rounded-full items-center justify-center w-max m-auto mt-5">
               <button
-                className={` p-2 ${mode === "student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
+                className={` p-2 ${mode === "Student" ? "border-2 text-orange-400 bg-white w-24 rounded-full p-2" : "text-white"
                   }`}
                 onClick={switchToStudent}
                 type="button"
@@ -56,7 +37,7 @@ const Login = () => {
                 Student
               </button>
               <button
-                className={`ml-3 p-2 ${mode === "instructor" ? "border-2 bg-white w-24 text-orange-400 rounded-full " : "text-white"
+                className={`ml-3 p-2 ${mode === "Admin" ? "border-2 bg-white w-24 text-orange-400 rounded-full " : "text-white"
                   }`}
                 onClick={switchToInstructor}
                 type="button"
@@ -65,9 +46,9 @@ const Login = () => {
               </button>
             </div>
 
-            {mode === "student" ? <Form /> : <Form />}
+            {mode === "student" ? <Form mode={mode} /> : <Form mode={mode} />}
 
-          </form>
+          </div>
         </div>
         <div
           className="flex flex-col items-center justify-center bg-sky-400"

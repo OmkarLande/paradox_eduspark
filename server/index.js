@@ -12,6 +12,12 @@ const port = process.env.PORT || 5000
 
 db.connect()
 
+app.use(
+	fileUpload({
+		useTempFiles:true,
+		tempFileDir:"/temp",
+	})
+)
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -30,11 +36,11 @@ app.use(
 app.use('/user', userRoutes)
 app.use('/rooms', roomRoutes)
 
-app.get('/' , (req , res)=>{
+// app.get('/' , (req , res)=>{
 
-   res.send('hello from simple server :)')
+//    res.send('hello from simple server :)')
 
-})
+// })
 
 
 
