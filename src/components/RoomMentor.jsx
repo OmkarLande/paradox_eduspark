@@ -33,20 +33,20 @@ function RoomMentor() {
 
     try {
       const authToken = document.cookie
-        ? document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("token="))
-            ?.split("=")[1]
-        : null;
-
+      ? document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1]
+      : null;
+      
+      if (authToken) {
+        headers["Authorization"] = `Bearer ${authToken.trim()}`;
+      }
       console.log(authToken);
       const headers = {
         "Content-Type": "application/json",
       };
 
-      if (authToken) {
-        headers["Authorization"] = `Bearer ${authToken.trim()}`;
-      }
       const response = await axios.post(
         "http://localhost:4000/rooms/create",
         formData,

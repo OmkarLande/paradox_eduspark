@@ -85,8 +85,8 @@ const DashboardMentor = () => {
             <p>Error: {error}</p>
           ) : (
             (mode === "card" && rooms.map(room => (
-              <div className=""  key={room._id}>
-                <Card name= {room.roomName} desc = {room.roomDescription}></Card>
+              <div key={room._id}>
+                <Card name= {room.roomName} desc = {room.roomDescription} roomId = {room._id}></Card>
               </div>
             ))) || (mode === "form" && <RoomMentor />)
           )}

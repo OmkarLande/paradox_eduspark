@@ -18,17 +18,15 @@ function Attendance() {
     };
 
     try {
-      const response = await fetch("http://localhost:4000/rooms/create", {
+      const response = await fetch("http://localhost:4000/rooms/create",formData, {
         method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        withCredentials: true,
+        
       });
 
       if (response.ok) {
         console.log("Data successfully submitted");
-        navigate("/");
+        navigate("/Students");
       } else {
         console.error(
           "Failed to submit data. Server returned:",
@@ -56,6 +54,7 @@ function Attendance() {
             Question
           </label>
           <input
+          value={question}
             onChange={(e) => {
               setQuestion(e.target.value);
             }}
@@ -73,6 +72,7 @@ function Attendance() {
             Option1
           </label>
           <input
+            value={option1}
             onChange={(e) => {
               setOption1(e.target.value);
             }}
@@ -87,6 +87,7 @@ function Attendance() {
             Option2
           </label>
           <input
+          value={option2}
             onChange={(e) => {
               setOption2(e.target.value);
             }}
@@ -101,6 +102,7 @@ function Attendance() {
             Option3
           </label>
           <input
+          value={option3}
             onChange={(e) => {
               setOption3(e.target.value);
             }}
