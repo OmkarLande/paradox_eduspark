@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Zoomlogo from '../../public/ZOOMlogo.png';
 
 const ZoomStud = () => {
   const {rId} = useParams()
@@ -49,11 +50,19 @@ const ZoomStud = () => {
 
   return (
     <div>
-      <div className="p-2">
-        <ul className="mt-2">
+      <div className='flex flex-row items-center justify-between'>
+          <img src={Zoomlogo} alt="not"  className='h-32'/>
+          <button
+          className="bg-sky-400 w-28  text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+          type="submit"
+          
+        >
+          <ul className="">
           <a href={meetLinks}>Join Meet</a> 
         </ul>
-      </div>
+          </button>
+        </div>
+      
     </div>
   );
 };
