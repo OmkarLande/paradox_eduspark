@@ -130,7 +130,8 @@ async function applyFromEmail(req, res) {
 
 async function allowStudentEnrollment(req, res) {
   try {
-    const { roomId, studentId } = req.body;
+    const roomId = req.params.roomId;
+    const studId = req.params.studId;
 
     // Find the room
     const room = await Rooms.findById(roomId);
@@ -144,7 +145,7 @@ async function allowStudentEnrollment(req, res) {
     }
 
     // Check if the student is in the pendingStudents list
-    if (!room.pendingStudents.includes(studentId)) {
+    if (!room.pendingStudents.includes(studId)) {
       return res.status(400).json({
         success: false,
         message: "The specified student is not pending enrollment.",
@@ -153,9 +154,9 @@ async function allowStudentEnrollment(req, res) {
 
     // Remove the student from pendingStudents and add to studentEnrolled
     room.pendingStudents = room.pendingStudents.filter(
-      (id) => id.toString() !== studentId
+      (id) => id.toString() !== studId
     );
-    room.studentEnrolled = studentId;
+    room.studentEnrolled = studId;
     await room.save();
 
     return res.status(200).json({
