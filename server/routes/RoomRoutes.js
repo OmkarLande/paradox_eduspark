@@ -13,7 +13,7 @@ router.get('/:roomId/pending-students', auth, isAdmin, getPendingStudents)
 
 router.post('/student-allow', auth, isAdmin, allowStudentEnrollment)
 
-router.get('/admin/:email', auth, isAdmin, getRoomsCreatedByAdmin)
+router.get('/admin/:userId', getRoomsCreatedByAdmin)
 
 router.get('/student/:userId', auth, getRoomsForStudent)
 

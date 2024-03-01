@@ -33,11 +33,11 @@ const router = createBrowserRouter([
     element : <Students/>
   },
   {
-    path: "/studroom/:rId",
+    path: "/studroom/:roomId",
     element : <StudRoom/>
   },
   {
-    path: "/create-room",
+    path: "/create-room/:userId",
     element : <RoomMentor/>
   },
 ]);

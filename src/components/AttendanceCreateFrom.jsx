@@ -22,17 +22,6 @@ function Attendance() {
     };
 
     try {
-      const authToken = document.cookie
-      ? document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1]
-      : null;
-      
-      if (authToken) {
-        headers["Authorization"] = `Bearer ${authToken.trim()}`;
-      }
-      console.log(authToken);
       const headers = {
         "Content-Type": "application/json",
       };
@@ -45,6 +34,7 @@ function Attendance() {
           withCredentials: true,
         }
       );
+      console.log(response.data)
 
       if (response.status === 200) {
         console.log("Data successfully submitted");

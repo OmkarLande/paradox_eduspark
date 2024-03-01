@@ -202,16 +202,25 @@ async function getPendingStudents(req, res) {
 
 async function getRoomsCreatedByAdmin(req, res) {
   try {
-    const { userId } = req.params;
+    const  userId  = req.params.userId;
 
     // Find the user with the provided email
-    const user = await User.findOne({ userId });
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+    console.log(user)
 
     // Fetch rooms created by the Admin user
-    // const rooms = await Rooms.find({ admin: user._id });
-
     const roomIds = user.rooms;
     const rooms = await Rooms.find({ _id: { $in: roomIds } });
+
+    // const roomIds = user.rooms;
+    // console.log(user)
+    // const rooms = await Rooms.find({ _id: { $in: roomIds } });
     
 
     return res.status(200).json({
@@ -264,7 +273,7 @@ async function getRoomsForStudent(req, res) {
 
       // Find the user with the provided email
       const user = await User.findById(userId);
-      // console.log(user)
+      console.log(user)
       const roomIds = user.rooms;
       const rooms = await Rooms.find({ _id: { $in: roomIds } });
       

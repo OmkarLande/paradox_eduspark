@@ -1,10 +1,11 @@
 const Que = require('../models/QuesSchema');
 const Attendance = require('../models/AttendenceSchema');
+const Room = require('../models/RoomSchema')
 
 async function raiseQuestion(req, res) {
     try {
         const { ques, opt1, opt2, opt3, correctRes } = req.body;
-        const adminId = req.user.id;
+        // const adminId = req.user.id;
         const roomId = req.params.roomId; 
 
         // Create a new question
@@ -14,17 +15,25 @@ async function raiseQuestion(req, res) {
             opt2,
             opt3,
             correctRes,
-            adminAssigned: adminId,
-            roomsId: roomId
         });
 
         // Save the question
         await newQuestion.save();
+        
+        const updatedRoom = await Room.findByIdAndUpdate(roomId, { $push: { ques: newQuestion._id } }, { new: true });
+        if (!updatedRoom) {
+            return res.status(404).json({
+                success: false,
+                message: 'Room not found or updated',
+            });
+        }
+        console.log(updatedRoom)
 
         return res.status(200).json({
             success: true,
             message: "Question raised successfully.",
-            newQuestion
+            newQuestion,
+            updatedRoom
         });
     } catch (error) {
         console.error(error);
@@ -111,7 +120,39 @@ async function markAttendance(userId, roomId) {
     }
 }
 
+async function getQuestions(req, res) {
+    try {
+        const roomId = req.params.roomId;
+
+        const room = await Room.findById(roomId);
+        if (!room) {
+            return res.status(404).json({
+                success: false,
+                message: "Room not found."
+            });
+        }
+
+        const firstQuestion = room.ques[0];
+
+        const que = await Que.findById(firstQuestion)
+        console.log(que)
+
+        return res.status(200).json({
+            success: true,
+            question: que
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        });
+    }
+}
+
+
 module.exports = {
-    raiseQuestion, answerQuestion
+    raiseQuestion, answerQuestion, getQuestions
 };
 
