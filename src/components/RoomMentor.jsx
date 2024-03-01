@@ -65,7 +65,7 @@ function RoomMentor() {
 
   return (
     <div className="">
-      <Navbar />
+      <Navbar userId ={userId} />
       <div className="flex flex-row">
         <div
           className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 "
