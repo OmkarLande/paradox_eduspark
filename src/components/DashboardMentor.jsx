@@ -25,7 +25,7 @@ const DashboardMentor = () => {
         // console.log(response.data)
         if (response.status === 200) {
           setRooms(response.data.rooms);
-          console.log(response) // Set rooms data from the response
+          // console.log(response) // Set rooms data from the response
         } else {
           throw new Error('Network response was not ok');
         }
@@ -87,7 +87,7 @@ const DashboardMentor = () => {
           ) : (
             (mode === "card" && rooms.map(room => (
               <div key={room._id}>
-              {console.log(room)}
+              {/* {console.log(room)} */}
               {/* {console.log(room._id, room.roomName)} */}
                 <Card userId = {userId} roomId = {room._id} name = {room.roomName} desc = {room.roomDescription}></Card>
               </div>

@@ -66,7 +66,7 @@ function StudAttendance(props) {
           withCredentials: true,
         }
       );
-      const userId = response.data.user._id;
+     
 
       if (response.status === 200) {
         alert("Question answered successfully");

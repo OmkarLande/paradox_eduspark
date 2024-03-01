@@ -34,7 +34,7 @@ function Attendance() {
           withCredentials: true,
         }
       );
-      console.log(response.data)
+      // console.log(response.data)
 
       if (response.status === 200) {
         console.log("Data successfully submitted");

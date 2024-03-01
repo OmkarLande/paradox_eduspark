@@ -3,7 +3,7 @@ import axios from "axios";
 import Zoomlogo from '../../public/ZOOMlogo.png';
 
 const ZoomStud = (props) => {
-  const [meetLinks, setMeetLinks] = useState('https://us04web.zoom.us/j/79626748997?pwd=9gicFeRZUU3mjOsppterrfx1lE9o8J.1');
+  const [meetLinks, setMeetLinks] = useState('');
   const roomId = props.roomId;
   const userId = props.userId
 
@@ -35,8 +35,8 @@ const ZoomStud = (props) => {
       );
 
 
-        const data = response.data.meetLinks;
-        // setMeetLinks(data.meetLink);
+        const data = response.data.meetLink.link;
+        setMeetLinks(data);
         console.log(data)
       } catch (error) {
         console.error("Error fetching meet links:", error);
