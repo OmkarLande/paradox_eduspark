@@ -29,15 +29,15 @@ const router = createBrowserRouter([
     element : <DashboardStudent/>
   },
   {
-    path: "/students/:roomId",
+    path: "/students/:userId/:roomId",
     element : <Students/>
   },
   {
-    path: "/studroom/:rId",
+    path: "/studroom/:userId/:roomId",
     element : <StudRoom/>
   },
   {
-    path: "/create-room",
+    path: "/create-room/:userId",
     element : <RoomMentor/>
   },
 ]);

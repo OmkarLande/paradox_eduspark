@@ -34,7 +34,11 @@ const roomSchema = new mongoose.Schema({
 
     imageUrl:{
         type:String,
-    }
+    },
+    ques:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ques"
+    }]
 
 })
 

@@ -24,7 +24,8 @@ const DashboardMentor = () => {
         });
         // console.log(response.data)
         if (response.status === 200) {
-          setRooms(response.data.rooms); // Set rooms data from the response
+          setRooms(response.data.rooms);
+          // console.log(response) // Set rooms data from the response
         } else {
           throw new Error('Network response was not ok');
         }
@@ -36,7 +37,7 @@ const DashboardMentor = () => {
     };
 
     fetchData();
-  }, [userId]);
+  }, []);
 
   const displayCard = () => {
     setMode("card");
@@ -70,7 +71,7 @@ const DashboardMentor = () => {
               <li className="">
                 <div className="flex flex-row items-center p-2 ">
                   <IoMdAddCircle />
-                  <Link to = '/create-room' className="ml-2" >
+                  <Link to = {`/create-room/${userId}`} className="ml-2" >
                      Add New Room
                   </Link>
                 </div>
@@ -86,8 +87,9 @@ const DashboardMentor = () => {
           ) : (
             (mode === "card" && rooms.map(room => (
               <div key={room._id}>
+              {/* {console.log(room)} */}
               {/* {console.log(room._id, room.roomName)} */}
-                <Card roomId = {room._id} name = {room.roomName} desc = {room.roomDescription}></Card>
+                <Card userId = {userId} roomId = {room._id} name = {room.roomName} desc = {room.roomDescription}></Card>
               </div>
             ))) || (mode === "form" && <RoomMentor />)
           )}

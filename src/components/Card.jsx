@@ -6,7 +6,8 @@ const Card = (props) => {
 
   const name = props.name;
   const desc = props.desc;
-  const roomId = props.roomId
+  const roomId = props.roomId;
+  const userId = props.userId
   // console.log(roomId, name, desc)
   
   
@@ -26,15 +27,14 @@ const Card = (props) => {
   
   return (
     <div className="flex flex-row flex-wrap">
-      
-      <Link to={`/Students/${roomId}`}>
-        
-        <div
-            className="card w-72 h-72 m-2 shadow-xl"
-            style={{"backgroundColor":getRandomColor()}}
-        >
-          <div className="card-body flex justify-center items-center  p-2 " >
-            <div className="card  "  >
+      <Link to={`/Students/${userId}/${roomId}`}>
+        <div className="card w-72 h-72 m-2 shadow-xl">
+          <div
+            style={{ backgroundColor: getRandomColor() }}
+            className="h-56 rounded-t-xl"
+          ></div>
+          <div className="card-body flex flex-col-reverse items-center  p-2  ">
+            <div className=" mb-5 flex flex-col items-center text-black ">
               <h2 className=" font-Grish text-3xl">{name} </h2>
                 <p className="text-xl font-sans">{desc}</p>
 

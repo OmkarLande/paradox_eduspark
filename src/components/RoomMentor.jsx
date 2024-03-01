@@ -3,16 +3,17 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import { FaHome } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function RoomMentor() {
-  const { email } = useParams();
+  const { userId  } = useParams();
   const [roomname, setRoomName] = useState("");
   const [roomdes, setRoomDes] = useState("");
   const [age, setAge] = useState(0);
   const [mode, setMode] = useState("card");
 
-  console.log(email);
+  const navigate = useNavigate()
+  // console.log(email);
 
   const displayCard = () => {
     setMode("card");
@@ -32,17 +33,7 @@ function RoomMentor() {
     };
 
     try {
-      const authToken = document.cookie
-      ? document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1]
-      : null;
       
-      if (authToken) {
-        headers["Authorization"] = `Bearer ${authToken.trim()}`;
-      }
-      console.log(authToken);
       const headers = {
         "Content-Type": "application/json",
       };
@@ -59,6 +50,7 @@ function RoomMentor() {
       if (response.status === 200) {
         console.log("Data successfully submitted");
         window.alert('Room Has Been Created!')
+        navigate(`/dashboard/${userId}`)
         // Perform any necessary action after successful submission
       } else {
         console.error(
@@ -73,7 +65,7 @@ function RoomMentor() {
 
   return (
     <div className="">
-      <Navbar />
+      <Navbar userId ={userId} />
       <div className="flex flex-row">
         <div
           className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 "

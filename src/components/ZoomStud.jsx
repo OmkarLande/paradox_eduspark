@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import Zoomlogo from '../../public/ZOOMlogo.png';
 
-const ZoomStud = () => {
-  const {rId} = useParams()
-  const [meetLinks, setMeetLinks] = useState('https://us04web.zoom.us/j/79626748997?pwd=9gicFeRZUU3mjOsppterrfx1lE9o8J.1');
+const ZoomStud = (props) => {
+  const [meetLinks, setMeetLinks] = useState('');
+  const roomId = props.roomId;
+  const userId = props.userId
 
   useEffect(() => {
     const fetchMeetLinks = async () => {
       try {
-       const authToken = document.cookie
-      ? document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1]
-      : null;
+      //  const authToken = document.cookie
+      // ? document.cookie
+      // .split("; ")
+      // .find((row) => row.startsWith("token="))
+      // ?.split("=")[1]
+      // : null;
 
-      if (authToken) {
-        headers["Authorization"] = `Bearer ${authToken.trim()}`;
-      }
+      // if (authToken) {
+      //   headers["Authorization"] = `Bearer ${authToken.trim()}`;
+      // }
       
       const headers = {
         "Content-Type": "application/json",
       };
 
       const response = await axios.get(
-        `http://localhost:4000/meet/${rId}/list`,
+        `http://localhost:4000/meet/${roomId}/list`,
         
         {
           headers: headers,
@@ -35,9 +35,9 @@ const ZoomStud = () => {
       );
 
 
-        const data = response.data;
-        setMeetLinks(data.meetLink.link);
-        console.log(meetLinks)
+        const data = response.data.meetLink.link;
+        setMeetLinks(data);
+        // console.log(data)
       } catch (error) {
         console.error("Error fetching meet links:", error);
         // Handle errors here, e.g., set an error state or display a message to the user
