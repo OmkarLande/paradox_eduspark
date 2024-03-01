@@ -31,13 +31,10 @@ const [isHovered, setIsHovered] = useState(false);
         
         <div
             className="card w-72 h-72 m-2 shadow-xl "
-            
+            style={{"backgroundColor":getRandomColor(),}}
         >
-          <div style={{"backgroundColor":getRandomColor(),}} className='h-56 rounded-t-xl'>
-
-          </div>
           <div className="card-body flex flex-col-reverse items-center  p-2 ">
-            <div className="mb-5 flex flex-col items-center text-black">
+            <div className="mb-5 flex flex-col items-center text-white">
               <h2 className="card-title  font-Grish text-3xl">{name} </h2>
                 <p className="text-xl font-sans">{desc}</p>
 
