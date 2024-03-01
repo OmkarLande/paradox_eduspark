@@ -5,7 +5,7 @@ const CardStud = (props) => {
 
   const name = props.name
   const desc = props.desc
-  const rId = props.rId
+  const roomId = props.roomId
   function getRandomColor() {
     const colors = [
       "#FF5733",
@@ -21,7 +21,7 @@ const CardStud = (props) => {
   
   return (
     <div className="flex flex-row flex-wrap" >
-      <Link to={`/StudRoom/${rId}`}>
+      <Link to={`/StudRoom/${roomId}`}>
         
         <div
             className="card w-72 h-72 m-2 shadow-xl "

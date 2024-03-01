@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 
+MULTIAVATAR_API = process.env.MULTIAVATAR_API;
 exports.signup = async(req, res) => {
     try {
         //data fetching
@@ -40,7 +41,7 @@ exports.signup = async(req, res) => {
             password: hashedPassword,
             role,
             age,
-            avatar: `https://api.multiavatar.com/Starcrasher.png?apikey=MULTIAVATAR_API`,
+            avatar: `https://api.multiavatar.com/${name}.png?apikey=${MULTIAVATAR_API}`,
         })
         return res.status(200).json({
             success: true,
@@ -132,3 +133,24 @@ exports.login = async (req, res) => {
         });
     }
 };
+
+exports.getAvatarByUserId = async (req, res) => {
+    try {
+      const { userId } = req.params;
+  
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      if (!user.avatar) {
+        return res.status(404).json({ success: false, message: 'Avatar not found for this user' });
+      }
+  
+      return res.json({ success: true, avatarUrl: user.avatar });
+    } catch (error) {
+      console.error('Error fetching avatar:', error);
+      return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+  };

@@ -6,66 +6,76 @@ import RoomMentor from "./RoomMentor";
 import { MdPersonAdd } from "react-icons/md";
 import Attendance from "./AttendanceCreateFrom";
 import Zoom from "./Zoom";
-import { Link, useParams  } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RiDashboardFill } from "react-icons/ri";
-import axios from 'axios'
+import axios from "axios";
 
 function Students() {
   const { roomId } = useParams();
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]); //exist , pending , attendence, meet
+  const [enroolled, setEnroolled] = useState([]) //enrolled student
+  const [pending, setPending] = useState([]) //pending student
   const [mode, setMode] = useState("room");
-  // const [students, setStudents] = useState("exist");
   const [loading, setLoading] = useState(true);
   const displayroom = () => {
     setMode("room");
   };
-  
+
   useEffect(() => {
     const fetchEnrolledStudents = async () => {
       try {
         setLoading(true);
-        
-        const authToken = document.cookie
-      ? document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1]
-      : null;
-      
-      if (authToken) {
-        headers["Authorization"] = `Bearer ${authToken.trim()}`;
-      }
-      console.log(authToken);
-      const headers = {
-        "Content-Type": "application/json",
-      };
-  
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
         const response = await axios.get(
           `http://localhost:4000/rooms/${roomId}/enrolled-students`,
           {
             headers: headers,
-            withCredentials: true
+            withCredentials: true,
           }
         );
-  
-        // Extract names and emails from the response
-        const enrolledStudents = response.data.enrolledStudents.map(student => ({
-          name: student.name,
-          email: student.email
-        }));
-  
-        setStudents(enrolledStudents);
+        setEnroolled(response.data.enrolledStudents);
+        // console.log(enroolled);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching enrolled students:", error);
         setLoading(false);
       }
     };
-  
+
     fetchEnrolledStudents();
   }, [roomId]);
 
-  
+  useEffect(() => {
+    const fetchPendingStudents = async () => {
+      try {
+        setLoading(true);
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        const response = await axios.get(
+          `http://localhost:4000/rooms/${roomId}/pending-students`,
+          {
+            headers: headers,
+            withCredentials: true,
+          }
+        );
+        // console.log(response.data.pendingStudents)
+        setPending(response.data.pendingStudents);
+        // console.log(pending)
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching pending students:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchPendingStudents();
+
+  }, [roomId])
 
   const displayexist = () => {
     setStudents("exist");
@@ -84,10 +94,7 @@ function Students() {
     <>
       <Navbar />
       <div className="flex flex-row ">
-        <div
-          className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 min-h-screen"
-          
-        >
+        <div className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 min-h-screen">
           {/* Sidebar content here */}
           <ul className="flex flex-col space-y-5  ">
             <div className="bg-sky-400 rounded-xl text-white">
@@ -107,7 +114,7 @@ function Students() {
                 <a href="#" className=" flex flex-row items-center p-2 ">
                   <RiDashboardFill />
                   <Link to="/dashboard">
-                    <button >
+                    <button>
                       <p className="ml-2 "> DashBoard</p>
                     </button>
                   </Link>
@@ -118,68 +125,73 @@ function Students() {
         </div>
         <div className="w-4/5 p-4 flex flex-row justify-center space-x-3">
           {/* Page content here */}
-         
-            <div className="w-4/5">
-              <div className="flex flex-row space-x-5">
-                {/* <button
-                  className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
-                  onClick={displayexist}
-                >
-                  Existing Students{" "}
-                </button> */}
-                <button
-                  className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
-                  onClick={displaypending}
-                >
-                  {" "}
-                  Pending Students
-                </button>
-                <button
-                  className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
-                  onClick={displayattendance}
-                >
-                  {" "}
-                  Attendance
-                </button>
-                <button
-                  className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
-                  onClick={displayZoom}
-                >
-                  {" "}
-                  Zoom Link
-                </button>
-              </div>
-              <div className="flex flex-col mt-5">
-                {/* {students === "exist" && (
-                  {studentsmap(stud =>(`
-                  <div>
-                    <ul className="">
-                      <li className="text-xl w-5/5 p-4 bg-slate-200 rounded-xl font-semibold">
-                        {
-                          ${stud.name}, ${stud.email}
-                        }
-                      </li>
-                    </ul>
-                  </div>
-                  `))} */}
-                  
-                {/* )}{" "} */}
-                {students === "pending" && (
-                  <div>
-                    <ul className="">
-                      <li className="text-xl flex flex-row justify-between items-center w-5/5 p-3 bg-slate-200 rounded-xl font-semibold">
-                        <p>Siddhesh</p>
-                        <p>Class: DSA</p>
-                        <MdPersonAdd className="w-7 h-10 text-sky-400" />
-                      </li>
-                    </ul>
-                  </div>
-                )}
-                {students === "attendance" && <Attendance />}
-                {students === "zoom" && <Zoom />}
-              </div>
+
+          <div className="w-4/5">
+            <div className="flex flex-row space-x-5">
+              <button
+                className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
+                onClick={displayexist}
+              >
+                Existing Students{" "}
+              </button>
+              <button
+                className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
+                onClick={displaypending}
+              >
+                {" "}
+                Pending Students
+              </button>
+              <button
+                className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
+                onClick={displayattendance}
+              >
+                {" "}
+                Attendance
+              </button>
+              <button
+                className="border-b-2  border-sky-400  font-Grish text-2xl text-orange-400"
+                onClick={displayZoom}
+              >
+                {" "}
+                Zoom Link
+              </button>
             </div>
-          
+            <div className="flex flex-col mt-5">
+              {students === "exist" && (
+                <div>
+                  {/* Render your enrolled students list here */}
+                  {enroolled.map((enroll, index) => (
+                    <div key={index}>
+                      <p>Name: {enroll.name}</p>
+                      <p>Email: {enroll.email}</p>
+                      <img src={enroll.avatar} alt="Student Avatar" />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {students === "pending" && (
+                <div>
+                {
+                  pending.map((stud, index) => (
+                    <div key={index}>
+                      {/* <p>Email: {stud.email}</p> */}
+                  <ul className="">
+                    <li className="text-xl flex flex-row justify-between items-center w-5/5 p-3 bg-slate-200 rounded-xl font-semibold">
+                      <img src={stud.avatar} alt="Student Avatar" />
+                      <p>{stud.name}</p>
+                      <p>Class: DSA</p>
+                      <MdPersonAdd className="w-7 h-10 text-sky-400" />
+                    </li>
+                  </ul>
+                    </div>
+                  ))
+                }
+                </div>
+              )}
+              {students === "attendance" && <Attendance />}
+              {students === "zoom" && <Zoom />}
+            </div>
+          </div>
         </div>
       </div>
     </>

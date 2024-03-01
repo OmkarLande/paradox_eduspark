@@ -1,9 +1,43 @@
+import { useState, useEffect } from 'react';
 import React from "react";
 import logo from '../images/Logo.svg'
 import avatar from '../images/avatar.svg';
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
-function Navbar() {
+function Navbar(props) {
+  const userId = props.userId
+
+  const [loading, setLoading] = useState(true)
+  const [photourl, setPhotourl] = useState(null);
+
+  useEffect(() => {
+    const fetchAvatar = async() => {
+      try {
+        setLoading(true);
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        const response = await axios.get(
+          `http://localhost:4000/user/${userId}`,
+          {
+            headers: headers,
+            withCredentials: true,
+          }
+        );
+        setPhotourl(response.data.avatarUrl);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching pending students:", error);
+        setLoading(false);
+      }
+    }
+  
+    fetchAvatar()
+  }, [userId])
+  
+
   return (
     <div className="navbar flex justify-center items-center bg-white shadow-lg">
       <div className="flex-1 w-max">
@@ -20,7 +54,7 @@ function Navbar() {
           >
             <div className="avatar online">
               <div className=" rounded-full">
-                <img src={avatar} />
+              <img src={photourl || avatar} alt="User Avatar" />
               </div>
             </div>
           </div>

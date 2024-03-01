@@ -8,7 +8,7 @@ exports.auth = async (req, res, next) => {
         const token = req.cookies.token
             || req.body.token
             || req.header("Authorisation").replace("Bearer", "");
-        console.log("Token Extracted");
+        // console.log("Token Extracted");
         //token missing
 
         if (!token) {
@@ -62,7 +62,7 @@ exports.isStudent = async (req, res, next) => {
 //isAdmin
 exports.isAdmin = async (req, res, next) => {
     try {
-        console.log(req.user)
+        // console.log(req.user)
         if (req.user.role !== "Admin") {
             return res.status(401).json({
                 success: false,

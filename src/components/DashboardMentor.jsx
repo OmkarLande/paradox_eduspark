@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
 const DashboardMentor = () => {
-  const { email } = useParams();
+  const { userId } = useParams();
   const [mode, setMode] = useState("card");
   const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState([]);
@@ -19,10 +19,10 @@ const DashboardMentor = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:4000/rooms/admin/${email}`, {
+        const response = await axios.get(`http://localhost:4000/rooms/admin/${userId}`, {
           withCredentials: true
         });
-
+        // console.log(response.data)
         if (response.status === 200) {
           setRooms(response.data.rooms); // Set rooms data from the response
         } else {
@@ -36,7 +36,7 @@ const DashboardMentor = () => {
     };
 
     fetchData();
-  }, [email]);
+  }, [userId]);
 
   const displayCard = () => {
     setMode("card");
@@ -48,7 +48,7 @@ const DashboardMentor = () => {
 
   return (
     <div className="">
-      <Navbar />
+      <Navbar userId = {userId} />
       <div className="flex flex-row ">
         <div
           className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 min-h-screen"
@@ -86,7 +86,8 @@ const DashboardMentor = () => {
           ) : (
             (mode === "card" && rooms.map(room => (
               <div key={room._id}>
-                <Card name= {room.roomName} desc = {room.roomDescription} roomId = {room._id}></Card>
+              {/* {console.log(room._id, room.roomName)} */}
+                <Card roomId = {room._id} name = {room.roomName} desc = {room.roomDescription}></Card>
               </div>
             ))) || (mode === "form" && <RoomMentor />)
           )}

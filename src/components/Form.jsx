@@ -25,10 +25,13 @@ function Form(props) {
             },
             withCredentials: true
         });
+        const userId = response.data.user._id
 
         if (response.status === 200) {
             console.log('Data successfully submitted');
-            (mode === 'Student') ? navigate('/dashboardstud') : navigate(`/dashboard/${email}`);
+            // console.log('role is  ',response.data.user.role);
+            // console.log()
+            (response.data.user.role === 'Student') ? navigate(`/dashboardstud/${userId}`) : navigate(`/dashboard/${userId}`);
         } else {
             console.error('Failed to submit data. Server returned:', response.status);
         }

@@ -173,10 +173,11 @@ async function allowStudentEnrollment(req, res) {
 
 async function getPendingStudents(req, res) {
   try {
-    const { roomId } = req.body;
+    const { roomId } = req.params;
 
     // Find the room
-    const room = await Rooms.findById(roomId).populate("pendingStudents");
+    const room = await Rooms.findById(roomId).populate("pendingStudents")
+    console.log(room);
 
     // Check if the room exists
     if (!room) {
@@ -201,13 +202,17 @@ async function getPendingStudents(req, res) {
 
 async function getRoomsCreatedByAdmin(req, res) {
   try {
-    const { email } = req.params;
+    const { userId } = req.params;
 
     // Find the user with the provided email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ userId });
 
     // Fetch rooms created by the Admin user
-    const rooms = await Rooms.find({ admin: user._id });
+    // const rooms = await Rooms.find({ admin: user._id });
+
+    const roomIds = user.rooms;
+    const rooms = await Rooms.find({ _id: { $in: roomIds } });
+    
 
     return res.status(200).json({
       success: true,
@@ -255,30 +260,39 @@ async function getAllEnrolledStudents(req, res) {
 
 async function getRoomsForStudent(req, res) {
     try {
-        const studentId = req.user.id;
+      const { userId } = req.params;
 
-        // Find the student by their ID
-        const student = await User.findById(studentId);
-
-        if (!student) {
-            return res.status(404).json({ message: 'Student not found' });
-        }
-        const roomIds = student.rooms;
-        const rooms = await Promise.all(roomIds.map(async roomId => {
-            const room = await Rooms.findById(roomId);
-            return {
-                roomName: room.roomName,
-                roomDescription: room.roomDescription,
-                roomId: room._id
-            };
-        }));
-
-        res.json({ rooms });
+      // Find the user with the provided email
+      const user = await User.findById(userId);
+      // console.log(user)
+      const roomIds = user.rooms;
+      const rooms = await Rooms.find({ _id: { $in: roomIds } });
+      
+  
+      return res.status(200).json({
+        success: true,
+        rooms,
+      });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+async function getRoomById(req, res){
+  try {
+    const { roomId } = req.params;
+  
+    const roomDetails  = await Rooms.findById(roomId);
+     
+    res.json({roomDetails})
+    
+  } catch (error) {
+    console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 
 module.exports = {
   getAllEnrolledStudents,
@@ -288,4 +302,5 @@ module.exports = {
   allowStudentEnrollment,
   getPendingStudents,
   getRoomsCreatedByAdmin,
+  getRoomById,
 };

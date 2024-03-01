@@ -5,6 +5,8 @@ const Card = (props) => {
 
   const name = props.name;
   const desc = props.desc;
+  const roomId = props.roomId
+  // console.log(roomId, name, desc)
   const colors = [
     "#FF5733",
     // "#33FF57",
@@ -30,7 +32,7 @@ const Card = (props) => {
   return (
     <div className="flex flex-row flex-wrap">
       
-      <Link to={`/Students/${props.roomId}`}>
+      <Link to={`/Students/${roomId}`}>
         
         <div
             className="card w-72 h-72 m-2 shadow-xl"
