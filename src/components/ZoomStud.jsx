@@ -37,7 +37,7 @@ const ZoomStud = (props) => {
 
         const data = response.data.meetLink.link;
         setMeetLinks(data);
-        console.log(data)
+        // console.log(data)
       } catch (error) {
         console.error("Error fetching meet links:", error);
         // Handle errors here, e.g., set an error state or display a message to the user

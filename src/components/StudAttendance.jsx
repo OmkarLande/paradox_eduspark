@@ -27,7 +27,7 @@ function StudAttendance(props) {
           }
         );
 
-        console.log(response.data);
+        // console.log(response.data);
         setQuestion(response.data.question);
 
         // if (response.status === 200) {
