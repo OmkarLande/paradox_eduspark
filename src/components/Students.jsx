@@ -101,10 +101,11 @@ function Students() {
               <li className="">
                 <a href="#" className=" flex flex-row items-center p-2 ">
                   <FaHome />
-
+                  
                   <button onClick={displayroom}>
                     <p className="ml-2"> Room</p>
-                  </button>
+                    </button>
+                    
                 </a>
               </li>
             </div>
@@ -164,7 +165,7 @@ function Students() {
                     <div key={index}>
                       <p>Name: {enroll.name}</p>
                       <p>Email: {enroll.email}</p>
-                      <img src={enroll.avatar} alt="Student Avatar" />
+                      <img src={enroll.avatar} alt="Student Avatar"  />
                     </div>
                   ))}
                 </div>
@@ -176,11 +177,11 @@ function Students() {
                     <div key={index}>
                       {/* <p>Email: {stud.email}</p> */}
                   <ul className="">
-                    <li className="text-xl flex flex-row justify-between items-center w-5/5 p-3 bg-slate-200 rounded-xl font-semibold">
-                      <img src={stud.avatar} alt="Student Avatar" />
+                    <li className="text-xl flex flex-row justify-between items-center w-5/5 p-3 m-2 bg-sky-300 rounded-xl font-semibold">
+                      <img src={stud.avatar} alt="Student Avatar" className='h-12 '/>
                       <p>{stud.name}</p>
                       <p>Class: DSA</p>
-                      <MdPersonAdd className="w-7 h-10 text-sky-400" />
+                      <MdPersonAdd className="w-7 h-10 text-slate-800 " />
                     </li>
                   </ul>
                     </div>
