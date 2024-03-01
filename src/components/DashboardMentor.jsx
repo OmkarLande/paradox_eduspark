@@ -89,7 +89,7 @@ const DashboardMentor = () => {
               <div key={room._id}>
               {console.log(room)}
               {/* {console.log(room._id, room.roomName)} */}
-                <Card roomId = {room._id} name = {room.roomName} desc = {room.roomDescription}></Card>
+                <Card userId = {userId} roomId = {room._id} name = {room.roomName} desc = {room.roomDescription}></Card>
               </div>
             ))) || (mode === "form" && <RoomMentor />)
           )}

@@ -11,10 +11,11 @@ import { RiDashboardFill } from "react-icons/ri";
 import axios from "axios";
 
 function Students() {
-  const { roomId } = useParams();
+  const { userId, roomId } = useParams();
   const [students, setStudents] = useState([]); //exist , pending , attendence, meet
   const [enroolled, setEnroolled] = useState([]) //enrolled student
   const [pending, setPending] = useState([]) //pending student
+  const [studid, setStudid] = useState() //student id
   const [mode, setMode] = useState("room");
   const [loading, setLoading] = useState(true);
   const displayroom = () => {
@@ -77,6 +78,34 @@ function Students() {
 
   }, [roomId])
 
+  const allowStudentEnrollment = async (studId) => {
+    try {
+      setLoading(true);
+      const allowData = {
+        roomId, studId
+      }
+      console.log(allowData)
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      const response = await axios.post(
+        `http://localhost:4000/rooms/student-allow/${studId}/${roomId}`,allowData,
+        {
+          headers: headers,
+          withCredentials: true,
+        }
+      );
+      // setEnroolled(response.data.enrolledStudents);
+      console.log(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching enrolled students:", error);
+      setLoading(false);
+    }
+  };
+  
+
   const displayexist = () => {
     setStudents("exist");
   };
@@ -92,7 +121,7 @@ function Students() {
 
   return (
     <>
-      <Navbar />
+      <Navbar userId = {userId} />
       <div className="flex flex-row ">
         <div className="flex flex-col space-y-5 w-1/5 bg-white border-2  text-black px-1 py-4 min-h-screen">
           {/* Sidebar content here */}
@@ -181,7 +210,10 @@ function Students() {
                       <img src={stud.avatar} alt="Student Avatar" className='h-12 '/>
                       <p>{stud.name}</p>
                       <p>Class: DSA</p>
+                      <button onClick={() => allowStudentEnrollment(stud._id)}>
                       <MdPersonAdd className="w-7 h-10 text-slate-800 " />
+                      </button>
+                      {/* {console.log(stud)} */}
                     </li>
                   </ul>
                     </div>
