@@ -141,14 +141,14 @@ function Students() {
 
             <div className=" bg-slate-300 rounded-xl text-black">
               <li className="">
-                <a href="#" className=" flex flex-row items-center p-2 ">
+                <Link to={`/dashboard/${userId}`} className=" flex flex-row items-center p-2 ">
                   <RiDashboardFill />
-                  <Link to='/dashboard'>
+                  
                     <button>
                       <p className="ml-2 "> DashBoard</p>
                     </button>
-                  </Link>
-                </a>
+                  
+                </Link>
               </li>
             </div>
           </ul>
