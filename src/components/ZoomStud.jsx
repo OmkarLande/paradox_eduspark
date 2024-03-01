@@ -53,7 +53,7 @@ const ZoomStud = (props) => {
       <div className='flex flex-row items-center justify-between'>
           <img src={Zoomlogo} alt="not"  className='h-32'/>
           <button
-          className="bg-sky-400 w-28  text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+          className="bg-sky-300 w-28  text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
           type="submit"
           
         >
