@@ -1,19 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function StudAttendance() {
     const [selectedOption, setSelectedOption] = useState(null);
+    const [question, setQuestion] = useState({})
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const { roomId } = useParams();
+
+    useEffect(()=>{
+
+        console.log(`room id:${roomId}`)
+        
+        const fetchAttendance = async () => {
+          try {
+            setLoading(true);
+            const response = await axios.get(`http://localhost:4000/attendance/que/${roomId}`, {
+              withCredentials: true
+            });
+            // console.log(response.data)
+            if (response.status === 200) {
+              setQuestion(response.data);
+              console.log(response.data) // Set rooms data from the response
+            } else {
+              throw new Error('Network response was not ok');
+            }
+          } catch (error) {
+            setError(error.message);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchAttendance()
+      },[roomId])
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (selectedOption === 'option1') {
-            alert('Your attendance is marked!');
-        } else {
-            alert('Incorrect option selected. Please choose the correct answer.');
+        const formData = {
+            "selectedOption": selectedOption
+        };
+    
+        try {
+            const response = await axios.post(`http://localhost:4000/attendance/${question._id}/answer`, formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true
+            });
+            const userId = response.data.user._id
+    
+            if (response.status === 200) {
+                console.log('Question answered successfully');
+                // console.log('role is  ',response.data.user.role);
+                // console.log()
+                (response.data.user.role === 'Student') ? navigate(`/dashboardstud/${userId}`) : navigate(`/dashboard/${userId}`);
+            } else {
+                console.error('Failed to submit data. Server returned:', response.status);
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
 
