@@ -75,7 +75,7 @@ const DashboardStudent =() =>{
         {
           rooms.map((room, index) => (
             <div key={index}>
-              <CardStud roomId ={room._id} name = {room.roomName} desc = {room.roomDescription} ></CardStud>
+              <CardStud userId = {userId} roomId ={room._id} name = {room.roomName} desc = {room.roomDescription} ></CardStud>
             </div>
           ))
         }

@@ -6,6 +6,7 @@ const [isHovered, setIsHovered] = useState(false);
   const name = props.name
   const desc = props.desc
   const roomId = props.roomId
+  const userId = props.userId
    
 
   const defaultStyle = {
@@ -27,7 +28,7 @@ const [isHovered, setIsHovered] = useState(false);
   
   return (
     <div className="flex flex-row flex-wrap " >
-      <Link to={`/StudRoom/${roomId}`}>
+      <Link to={`/StudRoom/${userId}/${roomId}`}>
         
         <div
             className="card w-72 h-72 m-2 shadow-xl "

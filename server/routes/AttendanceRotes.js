@@ -6,8 +6,8 @@ const {auth, isAdmin, isStudent} = require('../middlewares/Auth')
 
 router.post('/:roomId/questions', auth, isAdmin, raiseQuestion )
 
-router.post('/:queId/answer', auth, isStudent, answerQuestion)
+router.post('/:queId/answer', auth, answerQuestion)
 
-router.get('/que/:roomId', getQuestions )
+router.get('/que/:roomId',auth, getQuestions )
 
 module.exports = router

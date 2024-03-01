@@ -159,6 +159,20 @@ async function allowStudentEnrollment(req, res) {
     room.studentEnrolled = studId;
     await room.save();
 
+    const student = await User.findById(studId);
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: "Student not found.",
+      });
+    }
+
+    // Add the roomId to the student's rooms array if it's not already there
+    if (!student.rooms.includes(roomId)) {
+      student.rooms.push(roomId);
+      await student.save();
+    }
+
     return res.status(200).json({
       success: true,
       message: "Student enrollment allowed successfully.",
@@ -174,7 +188,7 @@ async function allowStudentEnrollment(req, res) {
 
 async function getPendingStudents(req, res) {
   try {
-    const { roomId } = req.params;
+    const  roomId  = req.params.roomId;
 
     // Find the room
     const room = await Rooms.findById(roomId).populate("pendingStudents")
@@ -239,7 +253,7 @@ async function getRoomsCreatedByAdmin(req, res) {
 
 async function getAllEnrolledStudents(req, res) {
   try {
-    const { roomId } = req.params;
+    const  roomId  = req.params.roomId;
 
     // Find the room by its ID
     const room = await Rooms.findById(roomId).populate("studentEnrolled");
@@ -270,7 +284,7 @@ async function getAllEnrolledStudents(req, res) {
 
 async function getRoomsForStudent(req, res) {
     try {
-      const { userId } = req.params;
+      const  userId  = req.params.userId;
 
       // Find the user with the provided email
       const user = await User.findById(userId);
@@ -291,7 +305,7 @@ async function getRoomsForStudent(req, res) {
 
 async function getRoomById(req, res){
   try {
-    const { roomId } = req.params;
+    const  roomId  = req.params.roomId;
   
     const roomDetails  = await Rooms.findById(roomId);
      

@@ -64,7 +64,7 @@ async function answerQuestion(req, res) {
 
         // Check if the user has already attempted the question
         if (que.attemptedStudents.includes(userId)) {
-            return res.status(400).json({
+            return res.status(203).json({
                 success: false,
                 message: "You have already attempted this question."
             });
