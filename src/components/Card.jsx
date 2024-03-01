@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../components/styles/Card.css'
 
 const Card = (props) => {
 
@@ -7,6 +8,7 @@ const Card = (props) => {
   const desc = props.desc;
   const roomId = props.roomId
   // console.log(roomId, name, desc)
+  
   
 
   function getRandomColor() {
@@ -31,8 +33,8 @@ const Card = (props) => {
             className="card w-72 h-72 m-2 shadow-xl"
             style={{"backgroundColor":getRandomColor()}}
         >
-          <div className="card-body flex flex-col-reverse items-center  p-2  ">
-            <div className=" mb-5 flex flex-col items-center text-white " >
+          <div className="card-body flex justify-center items-center  p-2 " >
+            <div className="card  "  >
               <h2 className=" font-Grish text-3xl">{name} </h2>
                 <p className="text-xl font-sans">{desc}</p>
 

@@ -77,12 +77,12 @@ const Zoom = () => {
         </div>
         
         <ul className=" mt-2">
-          <li className="text-xl flex flex-row justify-between items-center w-5/5 p-3 bg-slate-200 rounded-xl font-semibold mt-5">
+          <li className="text-xl flex flex-row justify-between items-center w-5/5 p-3 bg-sky-300 rounded-xl font-semibold mt-5">
             <div>
               <input type="text" name="link" id="link" onChange={e=>setInviteLink(e.target.value)} className='rounded-full p-2 w-96'/>
             </div>
             <div>
-              <button className="bg-orange-600 p-2 mx-2 text-white rounded-lg" onClick={handleSubmit}>
+              <button className="bg-orange-500 p-2 mx-2 text-white rounded-lg" onClick={handleSubmit}>
                 Publish
               </button>
               

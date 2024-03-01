@@ -1,0 +1,17 @@
+.card{
+    
+    display: flex;
+    text-align: center;
+    align-items: center;
+    color: white;
+    transition: width 1s, height 1s;
+    
+}
+.card:hover{
+    align-items: center;
+    margin-bottom: 5px;
+    width: 300px;
+    height: 300px;
+    flex-direction: column;
+    justify-content: center;
+}
