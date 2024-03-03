@@ -6,7 +6,6 @@ const {auth, isAdmin, isStudent } = require('../middlewares/Auth')
 
 
 router.post('/create',auth, isAdmin, roomCreate)
-// router.get('/auth', authorizeZoom)
 router.get('/apply', applyFromEmail)
 
 router.get('/:roomId/pending-students', auth, isAdmin, getPendingStudents)
