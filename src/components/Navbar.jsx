@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from "react";
-import logo from '../images/Logo.svg'
-import avatar from '../images/avatar.svg';
+import logo from "/images/Logo.svg"
+import avatar from '/images/avatar.svg';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 

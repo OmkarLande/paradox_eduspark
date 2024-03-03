@@ -20,7 +20,7 @@ const Login = () => {
           className="mt-8 flex flex-col items-center justify-center "
           style={{ height: "100%", width: "50%" }}
         >
-          <img src="src/images/Logo.svg" alt="" />
+          <img src="/images/Logo.svg" alt="" />
           <div
             className="flex flex-col mt-10"
             style={{ width: "444px" }}
@@ -60,7 +60,7 @@ const Login = () => {
             Discover your passion today...
           </p>
           <img
-            src="src/images/boylogin.svg"
+            src="/images/boylogin.svg"
             className="ml-10"
             alt=""
             style={{ width: "70%" }}
