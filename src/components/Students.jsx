@@ -21,6 +21,7 @@ function Students() {
   const displayroom = () => {
     setMode("room");
   };
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchEnrolledStudents = async () => {
@@ -31,7 +32,7 @@ function Students() {
         };
 
         const response = await axios.get(
-          `http://localhost:4000/rooms/${roomId}/enrolled-students`,
+          `${apiUrl}/rooms/${roomId}/enrolled-students`,
           {
             headers: headers,
             withCredentials: true,
@@ -58,7 +59,7 @@ function Students() {
         };
 
         const response = await axios.get(
-          `http://localhost:4000/rooms/${roomId}/pending-students`,
+          `${apiUrl}/rooms/${roomId}/pending-students`,
           {
             headers: headers,
             withCredentials: true,
@@ -90,7 +91,7 @@ function Students() {
       };
 
       const response = await axios.post(
-        `http://localhost:4000/rooms/student-allow/${studId}/${roomId}`,allowData,
+        `${apiUrl}/rooms/student-allow/${studId}/${roomId}`,allowData,
         {
           headers: headers,
           withCredentials: true,

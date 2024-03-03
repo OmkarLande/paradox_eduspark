@@ -18,9 +18,10 @@ function Navbar(props) {
         const headers = {
           "Content-Type": "application/json",
         };
+        const apiUrl = import.meta.env.VITE_API_URL;
 
         const response = await axios.get(
-          `http://localhost:4000/user/${userId}`,
+          `${apiUrl}/user/${userId}`,
           {
             headers: headers,
             withCredentials: true,

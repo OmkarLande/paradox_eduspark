@@ -19,7 +19,9 @@ const DashboardMentor = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:4000/rooms/admin/${userId}`, {
+        const apiUrl = import.meta.env.VITE_API_URL;
+
+        const response = await axios.get(`${apiUrl}/rooms/admin/${userId}`, {
           withCredentials: true
         });
         // console.log(response.data)

@@ -10,6 +10,7 @@ function StudAttendance(props) {
   // const { roomId } = useParams();
   const roomId = props.roomId;
   const userId = props.userId;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchAttendance = async () => {
@@ -20,7 +21,7 @@ function StudAttendance(props) {
         };
 
         const response = await axios.get(
-          `http://localhost:4000/attendance/que/${roomId}`,
+          `${apiUrl}/attendance/que/${roomId}`,
           {
             headers: headers,
             withCredentials: true,
@@ -57,7 +58,7 @@ function StudAttendance(props) {
     try {
         // console.log(question)
       const response = await axios.post(
-        `http://localhost:4000/attendance/${question._id}/answer`,
+        `${apiUrl}/attendance/${question._id}/answer`,
         formData,
         {
           headers: {

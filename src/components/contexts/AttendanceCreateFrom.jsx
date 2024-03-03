@@ -20,6 +20,7 @@ function Attendance() {
       opt3: option3,
       correctRes: correctoption
     };
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
       const headers = {
@@ -27,7 +28,7 @@ function Attendance() {
       };
 
       const response = await axios.post(
-        `http://localhost:4000/attendance/${roomId}/questions`,
+        `${apiUrl}/attendance/${roomId}/questions`,
         formData,
         {
           headers: headers,

@@ -20,9 +20,10 @@ const DashboardStudent =() =>{
         const headers = {
           "Content-Type": "application/json",
         };
-  
+        const apiUrl = import.meta.env.VITE_API_URL;
+        
         const response = await axios.get(
-          `http://localhost:4000/rooms/student/${userId}`,
+          `${apiUrl}/rooms/student/${userId}`,
           
           {
             headers: headers,

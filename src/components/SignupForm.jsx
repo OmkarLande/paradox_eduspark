@@ -20,9 +20,10 @@ function SignupForm(props) {
       age: age,
       role: mode,
     };
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      const response = await fetch("http://localhost:4000/user/signup", {
+      const response = await fetch(`${apiUrl}/user/signup`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {

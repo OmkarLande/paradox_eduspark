@@ -20,13 +20,14 @@ const ZoomStud = (props) => {
       // if (authToken) {
       //   headers["Authorization"] = `Bearer ${authToken.trim()}`;
       // }
+      const apiUrl = import.meta.env.VITE_API_URL;
       
       const headers = {
         "Content-Type": "application/json",
       };
 
       const response = await axios.get(
-        `http://localhost:4000/meet/${roomId}/list`,
+        `${apiUrl}/meet/${roomId}/list`,
         
         {
           headers: headers,

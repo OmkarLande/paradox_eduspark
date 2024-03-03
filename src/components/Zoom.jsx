@@ -22,23 +22,14 @@ const Zoom = () => {
     };
 
     try {
-      // const authToken = document.cookie
-      // ? document.cookie
-      // .split("; ")
-      // .find((row) => row.startsWith("token="))
-      // ?.split("=")[1]
-      // : null;
-      
-      // if (authToken) {
-      //   headers["Authorization"] = `Bearer ${authToken.trim()}`;
-      // }
-      // console.log(authToken);
+      const apiUrl = import.meta.env.VITE_API_URL;
+     
       const headers = {
         "Content-Type": "application/json",
       };
 
       const response = await axios.post(
-        `http://localhost:4000/meet/publish-link`,
+        `${apiUrl}/meet/publish-link`,
         formData,
         {
           headers: headers,

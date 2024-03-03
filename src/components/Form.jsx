@@ -17,9 +17,10 @@ function Form(props) {
       "password": password,
       "role": mode
     };
-
+    const apiUrl = import.meta.env.VITE_API_URL;
+ 
     try {
-        const response = await axios.post('http://localhost:4000/user/login', formData, {
+        const response = await axios.post(`${apiUrl}/user/login`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },
