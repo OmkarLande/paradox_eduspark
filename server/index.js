@@ -34,10 +34,10 @@ app.use(
 )
 
 
-app.use('/user', userRoutes)
-app.use('/rooms', roomRoutes)
-app.use('/attendance', attendanceRoutes)
-app.use('/meet', meetRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/rooms', roomRoutes)
+app.use('/api/attendance', attendanceRoutes)
+app.use('/api/meet', meetRoutes)
 app.get('/', (req, res) => {
     res.send(`
         <p>Hello from the EDUSPARK server! 😎 Here are some useful links:</p>
