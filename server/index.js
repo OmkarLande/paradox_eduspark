@@ -39,8 +39,15 @@ app.use('/rooms', roomRoutes)
 app.use('/attendance', attendanceRoutes)
 app.use('/meet', meetRoutes)
 app.get('/', (req, res) => {
-	res.send('Hello from the EDUSPARK server! 😎 Here are some useful links:\n\n- API documentation: https://documenter.getpostman.com/view/26807468/2sA2xb7GJB\n- Deployment link: vercel.com');
- })
+    res.send(`
+        <p>Hello from the EDUSPARK server! 😎 Here are some useful links:</p>
+        <ul>
+            <li><a href="https://documenter.getpostman.com/view/26807468/2sA2xb7GJB" target="_blank">API documentation</a></li>
+            <li><a href="https://eduspark-paradox.vercel.app/" target="_blank">Deployment link</a></li>
+        </ul>
+    `);
+});
+ 
  
 
 
