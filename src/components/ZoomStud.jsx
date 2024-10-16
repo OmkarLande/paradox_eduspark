@@ -27,7 +27,7 @@ const ZoomStud = (props) => {
       };
 
       const response = await axios.get(
-        `${apiUrl}/meet/${roomId}/list`,
+        `${apiUrl}/api/meet/${roomId}/list`,
         
         {
           headers: headers,

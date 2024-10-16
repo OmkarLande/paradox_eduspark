@@ -21,7 +21,7 @@ function StudAttendance(props) {
         };
 
         const response = await axios.get(
-          `${apiUrl}/attendance/que/${roomId}`,
+          `${apiUrl}/api/attendance/que/${roomId}`,
           {
             headers: headers,
             withCredentials: true,
@@ -58,7 +58,7 @@ function StudAttendance(props) {
     try {
         // console.log(question)
       const response = await axios.post(
-        `${apiUrl}/attendance/${question._id}/answer`,
+        `${apiUrl}/api/attendance/${question._id}/answer`,
         formData,
         {
           headers: {

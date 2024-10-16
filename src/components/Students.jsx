@@ -32,7 +32,7 @@ function Students() {
         };
 
         const response = await axios.get(
-          `${apiUrl}/rooms/${roomId}/enrolled-students`,
+          `${apiUrl}/api/rooms/${roomId}/enrolled-students`,
           {
             headers: headers,
             withCredentials: true,
@@ -59,7 +59,7 @@ function Students() {
         };
 
         const response = await axios.get(
-          `${apiUrl}/rooms/${roomId}/pending-students`,
+          `${apiUrl}/api/rooms/${roomId}/pending-students`,
           {
             headers: headers,
             withCredentials: true,
@@ -91,7 +91,7 @@ function Students() {
       };
 
       const response = await axios.post(
-        `${apiUrl}/rooms/student-allow/${studId}/${roomId}`,allowData,
+        `${apiUrl}/api/rooms/student-allow/${studId}/${roomId}`,allowData,
         {
           headers: headers,
           withCredentials: true,

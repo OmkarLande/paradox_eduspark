@@ -20,7 +20,7 @@ function Form(props) {
     const apiUrl = import.meta.env.VITE_API_URL;
  
     try {
-        const response = await axios.post(`${apiUrl}/user/login`, formData, {
+        const response = await axios.post(`${apiUrl}/api/user/login`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },

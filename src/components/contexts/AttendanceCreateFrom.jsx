@@ -28,7 +28,7 @@ function Attendance() {
       };
 
       const response = await axios.post(
-        `${apiUrl}/attendance/${roomId}/questions`,
+        `${apiUrl}/api/attendance/${roomId}/questions`,
         formData,
         {
           headers: headers,

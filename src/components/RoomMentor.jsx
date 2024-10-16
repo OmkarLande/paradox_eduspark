@@ -40,7 +40,7 @@ function RoomMentor() {
       const apiUrl = import.meta.env.VITE_API_URL;
 
       const response = await axios.post(
-        `${apiUrl}/rooms/create`,
+        `${apiUrl}/api/rooms/create`,
         formData,
         {
           headers: headers,

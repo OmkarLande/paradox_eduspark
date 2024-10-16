@@ -29,7 +29,7 @@ const Zoom = () => {
       };
 
       const response = await axios.post(
-        `${apiUrl}/meet/publish-link`,
+        `${apiUrl}/api/meet/publish-link`,
         formData,
         {
           headers: headers,

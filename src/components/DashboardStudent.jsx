@@ -23,7 +23,7 @@ const DashboardStudent =() =>{
         const apiUrl = import.meta.env.VITE_API_URL;
         
         const response = await axios.get(
-          `${apiUrl}/rooms/student/${userId}`,
+          `${apiUrl}/api/rooms/student/${userId}`,
           
           {
             headers: headers,
