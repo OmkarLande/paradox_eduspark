@@ -23,7 +23,8 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use(
-	cors({ credentials: true, origin: ['http://localhost:5173', 'http://127.0.0.1:5173/', 'https://eduspark-paradox.vercel.app/' ]})
+	//cors policy to allow all origins
+	cors( { origin: true, credentials: true } )
 )
 
 app.use(
