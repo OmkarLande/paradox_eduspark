@@ -5,7 +5,7 @@ const {roomCreate, getRoomsCreatedByAdmin, getRoomsForStudent, getRoomById, getA
 const {auth, isAdmin, isStudent } = require('../middlewares/Auth')
 
 
-router.post('/create', roomCreate)
+router.post('/create',auth;, isAdmin, roomCreate)
 router.get('/apply', applyFromEmail)
 
 router.get('/:roomId/pending-students', auth, isAdmin, getPendingStudents)
